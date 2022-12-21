@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+    border: 1px solid black;
+    width: 15em;
+    border-radius: 3px;
+  }
+
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.content-ligas {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  align-items: center;
+}
+.globales {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.liga-options {
+  display: none;
+}
+.Liga {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+.Liga:hover {
+  background-color: black;
+  color: white;
+}
+.content li {
+  list-style: none;
+  padding: 5px 0px;
+  border: 1px solid black;
+  margin: 5px 0px;
+  border-radius: 5px;
+  background-color: #fbfbfb;
+}
+.content li:hover {
+  background-color: #c6e7dd;
+}
+.content a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

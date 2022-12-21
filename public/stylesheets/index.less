@@ -1,0 +1,94 @@
+@prymary : rgb(242, 243, 243);
+@secundary : rgb(59, 59, 59);
+@neutro : rgb(134, 134, 134);
+@special: rgb(223, 248, 223);
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+a{
+    outline: none;
+  text-decoration: none;
+  padding: 1em 0;
+  color: @secundary;
+}
+
+body{ 
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: @secundary;
+    color: @secundary;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.menu{
+    width: 15em;
+    border-radius: 5px;
+    text-align: center;
+    background-color: @prymary;
+    box-shadow: 1px 1px 10px @prymary;
+    
+    &_titulo{
+        font-size: 1.5em;
+        padding: 1em 0;
+        border-bottom: 3px solid @neutro;
+
+    }
+    
+    
+    &_seccion{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em;
+        background-color: fade(@secundary, 5%); ;
+    }
+
+    &_globales{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em 0;
+        border-top: 3px solid @neutro;
+        font-size: 0.9em;
+        h3{
+            cursor: pointer;
+            width: 100%;
+            padding: 0.5em 0;
+        }
+        h3:hover{
+           background-color: @secundary; 
+           color: @prymary;
+        }
+    }
+ }
+
+ .liga{
+    cursor: pointer;
+    width: 100%;
+
+    &_name{
+        width: 100%;
+        padding: 1em 0;
+    }
+
+    &_name:hover{
+        background-color: @secundary;
+        color: @prymary;
+
+    }
+}
+
+.liga-options{
+    display: none;
+}
+
+
+

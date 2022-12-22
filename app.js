@@ -11,7 +11,9 @@ var lessMiddleware = require('less-middleware');
 var indexRouter = require('./routes/index');
 
 // Rutas de ligas (llamarlas)//
-var edlibreRouter = require('./routes/ed/edlibre');
+var EdLibre = require('./routes/ed/edLibre');
+var EdFemenil = require('./routes/ed/edfemenil');
+var EdMixta = require('./routes/ed/edMixta');
 
 
 var app = express();
@@ -27,13 +29,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(lessMiddleware(__dirname + '/public'));
-app.use(express.static(__dirname + '/public'));
-
 // Rutas de ligas (EJECUTARLAS) //
 
 app.use('/', indexRouter);
-app.use('/ed/libre', edlibreRouter);
+app.use('/Ed/Libre', EdLibre);
+app.use('/Ed/Femenil', EdFemenil);
+app.use('/Ed/Mixta', EdMixta);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

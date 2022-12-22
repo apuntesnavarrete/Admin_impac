@@ -1,71 +1,25 @@
  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
-    
-<link rel="stylesheet/less" type="text/css" href="/stylesheets/index.less" />
-<script src="https://cdn.jsdelivr.net/npm/less" ></script>
 
-
-    <title>Document</title>
-</head>
-<body>
+<%- include('globales/cabecera.ejs') %>
+   
+     
     <div class="menu">
-        <h1 class="menu_titulo">Impacto Admin</h1>
+        <h1 class="menu_titulo"><%= titulo_card %></h1>
        
        
         <div class="menu_seccion">
        
-            <div class="liga">
-                <a href="http://localhost:8082/ed"> <h3 class="liga_name">Liga ED</h3></a>
-                <ul class="liga-options">
-                <li><a href="http://localhost:8081/ed/fem">Femenil</a></li>
-                <li><a href="http://localhost:8081/ed/libre">Libre</a></li>
-                <li><a href="http://localhost:8081/ed/mixta">Mixta</a></li>
-              </ul>
-            
-            </div> 
-
-
-            <div class="liga">
-                <a href="http://localhost:8082/ed"> <h3 class="liga_name">Aguigol</h3></a>
-                <ul class="liga-options">
-                <li><a href="http://localhost:8081/ed/fem">Femenil</a></li>
-                <li><a href="http://localhost:8081/ed/libre">Libre</a></li>
-                <li><a href="http://localhost:8081/ed/mixta">Mixta</a></li>
-              </ul>
-            
-            </div> 
-       
-            <div class="liga">
-                <a href="http://localhost:8082/ed"> <h3 class="liga_name">Gemelas</h3></a>
-                <ul class="liga-options">
-                <li><a href="http://localhost:8081/ed/fem">Femenil</a></li>
-                <li><a href="http://localhost:8081/ed/libre">Libre</a></li>
-                <li><a href="http://localhost:8081/ed/mixta">Mixta</a></li>
-              </ul>
-            
-            </div> 
-
-            <div class="liga">
-                <a href="http://localhost:8082/ed"> <h3 class="liga_name">Prochampions</h3></a>
-                <ul class="liga-options">
-                <li><a href="http://localhost:8081/ed/fem">Femenil</a></li>
-                <li><a href="http://localhost:8081/ed/libre">Libre</a></li>
-                <li><a href="http://localhost:8081/ed/mixta">Mixta</a></li>
-              </ul>
-            
-            </div> 
-
+          <ul>
+            <% Menu.forEach(function(Menu) { %>
+              <div class="liga">
+                <li>
+                  <a href="<%= Menu.link %>"> <h3 class="liga_name"> <%= Menu.option %></h3></a>
+                </li>
+              </div>
+            <% }); %>
+          </ul>
+          
         </div>
-
-
 
         <div class="menu_globales">
             <h3>Jugadores</h3>
@@ -73,5 +27,8 @@
 
         </div>
 </div>
+
+
+
 </body>
 </html>

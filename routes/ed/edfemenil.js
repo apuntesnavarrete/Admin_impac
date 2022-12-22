@@ -1,5 +1,4 @@
 
-
 var express = require('express');
 var router = express.Router();
 
@@ -10,12 +9,12 @@ let servidor = "http://localhost:8082/";
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   let StyleSheet = "index.less"
-  let title = "Ed"
-  let categoria = "Libre"
+  let title = "ED"
+  let categoria = "Femenil"
   let link = servidor + title + "/" + categoria + "/" ;
   title = title + categoria
 
-  let option = ["Resultados",  "Goleo" ,"Planteles" , "Sancionados"]
+  let option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados"]
 
   let Menu = [
     { option: option[0] , link:link + option[0]},
@@ -27,11 +26,4 @@ router.get('/', function(req, res, next) {
 res.render('home', { StyleSheet , title , titulo_card:title , Menu});
 });
 
-router.get('/Resultados', function(req, res, next) {
-  let StyleSheet = "index.less"
-  let title = "Ed"
-res.render('Resultados',{StyleSheet , title});
-});
-
 module.exports = router;
-

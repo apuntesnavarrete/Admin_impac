@@ -1,40 +1,70 @@
 
 <%- include('globales/cabecera.ejs') %>
 
-<p>holi</p>
+<div class="menu">
 
-<form action="" method="POST">
+
+<h2 class="menu_titulo">Resultados</h2>
+
+<p>Jornada anteriores</p>
+
+<form action="/<%= Liga %>/<%= Categoria %>/<%= Seccion %>" method="POST" class="form_resul">
     <input type="number" name="Jornada" value="" placeholder="Jornada">
-   
-     <input type="date" name="Fecha" value="" placeholder="Fecha">
- 
-       <br>
-       <br>
-    <label for="Equipo">Equipo1</label>
-       <input type="text" name="Equipo" value="" placeholder="">
-       <input type="number" name="GF" value="" placeholder="GF" class="col-md-1">
- 
-       <input type="number" name="Puntos" value="" placeholder="pl" class="col-md-1">
-       <input type="number" name="Puntos_2" value="" placeholder="pv" class="col-md-1">
- 
- 
-       <input type="text" name="GC" value="" placeholder="GC" class="col-md-1">
-       <input type="text" name="Equipo_2" value="" placeholder="Equipo_2">
-       <label for="Equipo_2">Equipo2</label>
- 
-       <br>
-       
+    <input type="date" name="Fecha" value="" placeholder="Fecha">
+
+    <div class="for_secc">
+
+      <input type="text" name="Equipo" value="" placeholder="Equipo Local">
+      <input type="number" name="GF" value="" placeholder="GF" class="col-md-1">
+      <input type="text" name="GC" value="" placeholder="GC" class="col-md-1">
+      <input type="text" name="Equipo_2" value="" placeholder="Equipo Visitante">
      </div>
- 
-             <!-- Fin jugador_1 -->
- 
+
+     <div class="for_secc form_desk">
+
+      <input type="text" name="Equipo" value="" placeholder="Equipo Local">
+      <input type="number" name="GF" value="" placeholder="GF" class="col-md-1">
+      <input type="text" name="GC" value="" placeholder="GC" class="col-md-1">
+      <input type="text" name="Equipo_2" value="" placeholder="Equipo Visitante">
+     </div>
+
+     <div class="for_secc form_desk">
+
+      <input type="text" name="Equipo" value="" placeholder="Equipo Local">
+      <input type="number" name="GF" value="" placeholder="GF" class="col-md-1">
+      <input type="text" name="GC" value="" placeholder="GC" class="col-md-1">
+      <input type="text" name="Equipo_2" value="" placeholder="Equipo Visitante">
+     </div>
+
+     <div class="for_secc form_desk">
+
+      <input type="text" name="Equipo" value="" placeholder="Equipo Local">
+      <input type="number" name="GF" value="" placeholder="GF" class="col-md-1">
+      <input type="text" name="GC" value="" placeholder="GC" class="col-md-1">
+      <input type="text" name="Equipo_2" value="" placeholder="Equipo Visitante">
+     </div>
+
+     <div class="for_secc form_desk">
+
+      <input type="text" name="Equipo" value="" placeholder="Equipo Local">
+      <input type="number" name="GF" value="" placeholder="GF" class="col-md-1">
+      <input type="text" name="GC" value="" placeholder="GC" class="col-md-1">
+      <input type="text" name="Equipo_2" value="" placeholder="Equipo Visitante">
+     </div>
+
+   
        
- 
- 
- <!-- Inicio columna Equipo_2 -->
- 
-        
- 
-       
+
+   
        <button>Enviar</button>
        </form>
+
+
+
+<!-- <P> VENTANA QUE ME PREGUNTE SI DESEO AGREGAR GOLES Y ASISTENCIA </P>
+       <P> if : redirigir a goles y asistencias pasando los equipos por varibles.</P>
+       <P> not : redirigir a imagen del resultado</P> -->
+
+       
+
+      </div>

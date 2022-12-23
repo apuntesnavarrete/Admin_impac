@@ -26,4 +26,22 @@ router.get('/', function(req, res, next) {
 res.render('home', { StyleSheet , title , titulo_card:title , Menu});
 });
 
+router.get('/Resultados', function(req, res, next) {
+  let StyleSheet = "Resultados.less"
+  let title = "Ed"
+  let Categoria = "Mixta"
+  let Seccion = "Resultados"
+
+
+res.render('Resultados',{StyleSheet , Liga:title , title, Categoria, Seccion});
+});
+
+router.post('/Resultados', function(req, res, next) {
+  var data = req.body
+  console.log(data)
+res.render('post');
+});
+
+
+
 module.exports = router;

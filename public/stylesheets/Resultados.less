@@ -1,0 +1,93 @@
+@prymary : rgb(242, 243, 243);
+@secundary : rgb(59, 59, 59);
+@neutro : rgb(134, 134, 134);
+@special: rgb(223, 248, 223);
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+a{
+    outline: none;
+  text-decoration: none;
+  padding: 1em 0;
+  color: @secundary;
+}
+
+li{
+    list-style: none;
+}
+
+ul{
+    width: 100%;
+}
+
+body{ 
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: @secundary;
+    color: @secundary;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.menu{
+    width: auto;
+    border-radius: 5px;
+    text-align: center;
+    background-color: @prymary;
+    box-shadow: 1px 1px 10px @prymary;
+    padding:0.5em;
+    
+    &_titulo{
+        font-size: 1.5em;
+        padding: 1em 0;
+        border-bottom: 3px solid @neutro;
+
+    }
+}
+
+input{
+    border: 2px solid @prymary;
+    height: 40px;
+    text-align: center;
+    margin: 0.2em;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin: 0.2em;
+} 
+
+button{
+    height: 3em;
+    background-color: @secundary;
+    border: 0px solid @special;
+    color: @special;
+    margin: 0.5em;
+}
+
+@media (min-width: 2000px) {
+    body{
+        font-size: 50px;
+    }
+  }
+
+
+  @media (max-width: 500px) {
+    .form_desk{
+        display: none;
+    }
+    .form_resul{
+        max-width: 300px;
+    }
+  }

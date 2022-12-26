@@ -39,18 +39,17 @@ res.render('Resultados',{StyleSheet , Liga:title , title, Categoria, Seccion});
 router.post('/Resultados', function(req, res, next) {
   let {Equipo,Equipo_2,GF,GC,Jornada,Fecha,Puntos,Puntos_rv} = req.body;
 
-  console.log(Equipo)
+  let Resultados = []
+  
+  for (let i = 0; i < 5; i++) {
+   Resultados[i] = [
+    {Jornada,Equipo:Equipo[i],GF:GF[i],GC:GC[i],Puntos:Puntos[i], Rival:Equipo_2[i],Fecha},
+    {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
+  ]
+  }
 
- 
+ console.log(Resultados)
 
-
-
-  let Resul_1 ={Jornada,Equipo:Equipo[0],GF:GF[0],GC:GC[0],Puntos:Puntos[0], Rival:Equipo_2[0],Fecha}
-  let Resul_2 ={Jornada,Equipo:Equipo_2[0],GF:GC[0],GC:GF[0],Puntos:Puntos_rv[0],Rival:Equipo[0],Fecha}
-
-
-
- console.log(Resul_1 , Resul_2)
 
 
   res.render('post');

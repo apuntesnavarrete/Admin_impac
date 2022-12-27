@@ -3,43 +3,14 @@ let GC = document.getElementsByClassName("GC")
 let puntos_local = document.getElementsByClassName("Puntos_l")
 let puntos_visitante = document.getElementsByClassName("Puntos_rv")
 
-
 for (let i = 0; i < GF.length; i++) {
-    console.log(i)
-    console.log(GF[i]);
-    console.log(GC[i])
-    console.log(puntos_local[i])
-    console.log(puntos_visitante[i])
-
-
     GC[i].addEventListener("change", function(e){
-       
       calc_puntos(i)
      })
-
      GF[i].addEventListener("change", function(e){
-       
         calc_puntos(i)
        })
-    
 }
-
-
-/*
-let GF = document.getElementsByClassName("GF")[0]
-let GC = document.getElementsByClassName("GC")[0]
-// let puntos_visitante = document.getElementsByClassName("Puntos_rv")[0]
-// let puntos_local = document.getElementsByClassName("Puntos_l")[0]
-
-GF.addEventListener("change", function(e){
-calc_puntos()    
-})
-
-GC.addEventListener("change", function(e){
-   calc_puntos()
-})
-
-*/
 
 function calc_puntos(i){
     if(parseInt(GF[i].value) > parseInt(GC[i].value)){ 

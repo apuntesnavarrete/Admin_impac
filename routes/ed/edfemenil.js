@@ -47,20 +47,40 @@ router.post('/Resultados', async(req, res, next)=> {
   let Resultados = []
   
   for (let i = 0; i < 5; i++) {
-    if(Equipo[i] == ""){
+    if(GF[i] == ""){
       //crear el como salir del bucle cuando este vacio
     } else{
       Resultados[i] = [
         {Jornada,Equipo:Equipo[i],GF:GF[i],GC:GC[i],Puntos:Puntos[i], Rival:Equipo_2[i],Fecha},
         {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
       ]
+
+      await pool.query("INSERT INTO ed_femenil_c2022 set ?",[Resultados[i][0]])
+      await pool.query("INSERT INTO ed_femenil_c2022 set ?",[Resultados[i][1]])
+
+
     }  
   }
-console.log(Resultados)
 
 
 
-  res.render('post');
+
+
+
+  res.send("http://localhost:8082/ED/Femenil/Resultados/Imagenes");
+});
+
+router.get('/Resultados/Imagenes', async (req, res, next) => {
+  const resul = await pool.query("SELECT * FROM `ed_jor_fem_c22` ORDER BY ID DESC LIMIT 30;");
+  console.log(resul)
+  let categoria = "Femenil"
+  let Liga = "Liga ED"
+  let logo_liga = "logoed.png"
+  let fondo = 'url("/images/fondoligaed.png")';
+  let color = 'rgb(223 114 199)'
+  let jornada = "Jornada"
+
+  res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
 });
 
 

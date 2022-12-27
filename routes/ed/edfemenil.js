@@ -1,6 +1,7 @@
 
 var express = require('express');
 var router = express.Router();
+const pool = require('../../database');
 
 
 let servidor = "http://localhost:8082/";
@@ -26,29 +27,32 @@ router.get('/', function(req, res, next) {
 res.render('home', { StyleSheet , title , titulo_card:title , Menu});
 });
 
-router.get('/Resultados', function(req, res, next) {
+router.get('/Resultados', async(req, res, next) =>{
   let StyleSheet = "Resultados.less"
   let title = "Ed"
   let Categoria = "Femenil"
   let Seccion = "Resultados"
+  const Planteles = await pool.query("SELECT * FROM `ed_general_fem_c22`");
+  console.log(Planteles)
 
-
-res.render('Resultados',{StyleSheet , Liga:title , title, Categoria, Seccion});
+res.render('Resultados',{StyleSheet , Liga:title , title, Categoria, Seccion , Planteles});
 });
 
-router.post('/Resultados', function(req, res, next) {
+router.post('/Resultados', async(req, res, next)=> {
   let {Equipo,Equipo_2,GF,GC,Jornada,Fecha,Puntos,Puntos_rv} = req.body;
-
   let Resultados = []
   
   for (let i = 0; i < 5; i++) {
-   Resultados[i] = [
-    {Jornada,Equipo:Equipo[i],GF:GF[i],GC:GC[i],Puntos:Puntos[i], Rival:Equipo_2[i],Fecha},
-    {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
-  ]
+    if(Equipo[i] == ""){
+      //crear el como salir del bucle cuando este vacio
+    } else{
+      Resultados[i] = [
+        {Jornada,Equipo:Equipo[i],GF:GF[i],GC:GC[i],Puntos:Puntos[i], Rival:Equipo_2[i],Fecha},
+        {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
+      ]
+    }  
   }
-
- console.log(Resultados)
+console.log(Resultados)
 
 
 

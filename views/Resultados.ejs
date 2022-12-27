@@ -3,10 +3,14 @@
 
 <div class="menu">
 
-  <%- Planteles[0]["Equipo"] %>
+  
 <h2 class="menu_titulo">Resultados</h2>
+<p>Jornada anteriores
+<% for(var i=0 ; i < Jornadas.length; i++) { %>
+  <%- Jornadas[i]["Jornada"] %> 
+  <% } %>
 
-<p>Jornada anteriores</p>
+</p>
 
 <form action="/<%= Liga %>/<%= Categoria %>/<%= Seccion %>" method="POST" class="form_resul">
     <input type="number" name="Jornada" value="" placeholder="Jornada">
@@ -89,7 +93,7 @@
         </select>
      </div>
 
-
+ 
      <div class="for_secc form_desk">
 
       <select name="Equipo">

@@ -33,9 +33,13 @@ router.get('/Resultados', async(req, res, next) =>{
   let Categoria = "Femenil"
   let Seccion = "Resultados"
   const Planteles = await pool.query("SELECT * FROM `ed_general_fem_c22`");
-  console.log(Planteles)
+  const Jornadas = await pool.query("SELECT Jornada FROM `ed_jor_fem_c22` GROUP BY Jornada");
 
-res.render('Resultados',{StyleSheet , Liga:title , title, Categoria, Seccion , Planteles});
+  console.log(Planteles)
+  console.log(Jornadas)
+
+
+res.render('Resultados',{StyleSheet , Liga:title , title, Categoria, Seccion , Planteles,Jornadas});
 });
 
 router.post('/Resultados', async(req, res, next)=> {

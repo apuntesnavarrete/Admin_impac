@@ -61,13 +61,7 @@ router.post('/Resultados', async(req, res, next)=> {
 
     }  
   }
-
-
-
-
-
-
-  res.send("http://localhost:8082/ED/Femenil/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/ED/Femenil/Resultados/Imagenes");
 });
 
 router.get('/Resultados/Imagenes', async (req, res, next) => {
@@ -81,6 +75,42 @@ router.get('/Resultados/Imagenes', async (req, res, next) => {
   let jornada = "Jornada"
 
   res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
+});
+
+router.get('/Resultados/Edit/:id', async (req, res, next) => { 
+  let regis_edit = req.params.id;
+
+  let consulta = await pool.query("SELECT * FROM `futbolce_zon58`.`ed_femenil_c2022` WHERE `ID`= ?;",[regis_edit])
+  console.log(consulta)
+
+  let StyleSheet = "Resultados.less"
+  let title = "Ed"
+  let Categoria = "Femenil"
+  let Seccion = "Resultados"
+  const Planteles = await pool.query("SELECT * FROM `ed_general_fem_c22`");
+  const Jornadas = await pool.query("SELECT Jornada FROM `ed_jor_fem_c22` GROUP BY Jornada");
+
+  console.log(Planteles)
+  console.log(Jornadas)
+
+
+res.render('Resultados-edit',{StyleSheet , Liga:title , title, Categoria, Seccion , Planteles,Jornadas});
+
+ 
+
+});
+
+router.get('/Resultados/Delete/:id', async (req, res, next) => { 
+  let regis_delete = req.params.id;
+
+  await pool.query("DELETE FROM `futbolce_zon58`.`ed_femenil_c2022` WHERE  `ID`= ?;",[regis_delete])
+  
+
+  
+
+  res.redirect("http://localhost:8082/ED/Femenil/Resultados/Imagenes");
+
+
 });
 
 

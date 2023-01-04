@@ -9,10 +9,10 @@ const Liga = 'Liga Aguigol'
 let categoria = "Libre"
 const css = 'general'
 let StyleSheet = "index.less"
-let logo_liga = "logoed.png"
-let fondo = 'url("/images/fondoligaed.png")';
-let color = 'rgb(223 114 199)'
-let jornada = "Jornada"
+let logo_liga = "Aguigol.png"
+let fondo = 'url("/images/fondoaguigol.png")';
+let color = 'rgb(218 204 76)'
+let jornada = "Semana"
 let StyleSheet_Resultados = "Resultados.less"
 
 
@@ -145,11 +145,11 @@ router.post('/Resultados', async(req, res, next)=> {
 
     }  
   }
-  res.redirect("http://localhost:8082/ED/Femenil/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/Aguigol/Libre/Resultados/Imagenes");
 });
 
 router.get('/Resultados/Imagenes', async (req, res, next) => {
-  const resul = await pool.query("SELECT * FROM `ed_jor_fem_c22` ORDER BY ID DESC LIMIT 30;");
+  const resul = await pool.query("SELECT * FROM `agui_jor_libre_c2022` ORDER BY ID DESC LIMIT 30;");
  
 
   res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
@@ -160,12 +160,12 @@ router.get('/Resultados/Imagenes', async (req, res, next) => {
 router.get('/Resultados/Delete/:id', async (req, res, next) => { 
   let regis_delete = req.params.id;
 
-  await pool.query("DELETE FROM `futbolce_zon58`.`ed_femenil_c2022` WHERE  `ID`= ?;",[regis_delete])
+  await pool.query("DELETE FROM `futbolce_zon58`.`agui_libre_c22` WHERE  `ID`= ?;",[regis_delete])
   
 
   
 
-  res.redirect("http://localhost:8082/ED/Femenil/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/Aguigol/Libre/Resultados/Imagenes");
 
 
 });

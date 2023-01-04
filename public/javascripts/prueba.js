@@ -27,8 +27,8 @@ function calc_puntos(i){
     }
     else if(parseInt(GF[i].value) == parseInt(GC[i].value)){
         console.log("decidir empate")
-        GC[i].style.backgroundColor = "green"
-        GF[i].style.backgroundColor = "green"
+        GC[i].style.backgroundColor = "Salmon"
+        GF[i].style.backgroundColor = "Salmon"
         let desempate = prompt("¿Quien gano en el desempate? L o V o E");
         if(desempate == "L"){
             console.log("gano el local en el desempate")

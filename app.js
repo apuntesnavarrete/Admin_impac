@@ -11,10 +11,16 @@ var lessMiddleware = require('less-middleware');
 var indexRouter = require('./routes/index');
 
 // Rutas de ligas (llamarlas)//
+//ED
 var EdLibre = require('./routes/ed/edLibre');
 var EdFemenil = require('./routes/ed/edfemenil');
 var EdMixta = require('./routes/ed/edMixta');
+ //ED
 
+ //Aguigol
+var AguigolLibre = require('./routes/aguigol/aguilibre');
+
+  //Aguigol
 
 var app = express();
 
@@ -32,10 +38,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Rutas de ligas (EJECUTARLAS) //
 
 app.use('/', indexRouter);
+ //ED
 app.use('/Ed/Libre', EdLibre);
 app.use('/Ed/Femenil', EdFemenil);
 app.use('/Ed/Mixta', EdMixta);
+  //ED
 
+  //Aguigol
+  app.use('/Aguigol/Libre', AguigolLibre);
+
+  //Aguigol
 
 
 // catch 404 and forward to error handler

@@ -27,12 +27,14 @@
         <div class="Equipo_2">
             <img class="equipos" src="<%- resul[i].Escudolc %>" alt="">
         </div>       
-        <p class="marcador"><%- resul[i].GC %> - <%- resul[i].GF %></p>
+        <p class="marcador"><%- resul[i].GF %> - <%- resul[i].GC %></p>
         <p class="Logo">
             <img class="logo-img" src="/images/<%- logo_liga %>" alt="">
         </p>
         <p class="liga"><%- Liga %></p>
     </div>
+
+        <p>Puntos local:<%- resul[i].Puntos %> </p>
 
     <a href="Edit/<%- resul[i].ID %>"> Editar  <%- resul[i].ID %></a>
 

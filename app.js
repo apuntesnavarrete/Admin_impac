@@ -19,6 +19,7 @@ var EdMixta = require('./routes/ed/edMixta');
 
  //Aguigol
 var AguigolLibre = require('./routes/aguigol/aguilibre');
+var AguigolSub22 = require('./routes/aguigol/aguisub22');
 
   //Aguigol
 
@@ -46,6 +47,7 @@ app.use('/Ed/Mixta', EdMixta);
 
   //Aguigol
   app.use('/Aguigol/Libre', AguigolLibre);
+  app.use('/Aguigol/Sub22', AguigolSub22);
 
   //Aguigol
 

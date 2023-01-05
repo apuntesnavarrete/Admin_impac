@@ -19,8 +19,9 @@ router.get('/', function(req, res, next) {
 
   let title = "Principal"
   let titulo_card = "Impacto"
+  let Menu_jugadores = "Jugadores"
 
-  res.render('home', { StyleSheet , title , titulo_card, Menu});
+  res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores});
 });
 
 router.get('/ED', function(req, res, next) {
@@ -45,7 +46,7 @@ router.get('/Aguigol', function(req, res, next) {
   let title = "Aguigol"
   let link = servidor + title + "/";
 
-  let categorias = ["Sub-22", "Libre" , "Mixta"]
+  let categorias = ["Sub22", "Libre" , "Mixta"]
 
   let Menu = [
     { option: categorias[0] , link:link + categorias[0]},
@@ -89,6 +90,21 @@ router.get('/gemelas', function(req, res, next) {
 ];
 
 res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+});
+
+router.get('/Jugadores', function(req, res, next) {
+  let title = "Jugadores"
+  let StyleSheet = "Resultados.less"
+
+res.render('Jugadores', {title, StyleSheet});
+});
+
+router.post('/Jugadores', function(req, res, next) {
+  let {Id, Nombre , Curp , Foto} = req.body;
+  console.log(Nombre)
+  console.log(Foto)
+
+res.redirect('http://localhost:8082/');
 });
 
 

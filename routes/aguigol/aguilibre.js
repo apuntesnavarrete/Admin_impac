@@ -8,7 +8,7 @@ let title = "Aguigol"
 const Liga = 'Liga Aguigol'
 let categoria = "Libre"
 const css = 'general'
-let StyleSheet = "index.less"
+const StyleSheet = "index.less"
 let logo_liga = "Aguigol.png"
 let fondo = 'url("/images/fondoaguigol.png")';
 let color = 'rgb(218 204 76)'
@@ -19,7 +19,7 @@ let StyleSheet_Resultados = "Resultados.less"
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
+  let title_categoria = title + categoria
 
   let option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
 
@@ -31,14 +31,14 @@ router.get('/', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu});
 });
 
 
 router.get('/General', async(req, res, next)=> {
-  const vistas = await pool.query("SELECT * FROM `ed_general_fem_c22`");
+  const vistas = await pool.query("SELECT * FROM `agui_general_libre_c22`");
 
-    const result = await pool.query("SELECT * FROM `ed_jor_fem_c22`");
+    const result = await pool.query("SELECT * FROM `agui_libre_c22`");
 
 
 

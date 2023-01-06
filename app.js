@@ -10,6 +10,10 @@ var lessMiddleware = require('less-middleware');
 
 var indexRouter = require('./routes/index');
 
+// Rutas jugadores // 
+var Jugadores = require('./routes/jugadores/jugadores');
+
+
 // Rutas de ligas (llamarlas)//
 //ED
 var EdLibre = require('./routes/ed/edLibre');
@@ -34,6 +38,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+//Ruta jugadores //
+app.use('/Jugadores', Jugadores);
 
 
 // Rutas de ligas (EJECUTARLAS) //

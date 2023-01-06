@@ -14,6 +14,7 @@ let fondo = 'url("/images/fondoaguigol.png")';
 let color = 'rgb(218 204 76)'
 let jornada = "Semana"
 let StyleSheet_Resultados = "Resultados.less"
+let Menu_jugadores = "Jugadores"
 
 
 /* GET users listing. */
@@ -31,7 +32,7 @@ router.get('/', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores});
 });
 
 

@@ -14,6 +14,7 @@ let fondo = 'url("/images/fondoaguigol.png")';
 let color = 'rgb(218 204 76)'
 let jornada = "Semana"
 let StyleSheet_Resultados = "Resultados.less"
+let Menu_jugadores = "Jugadores"
 
 
 /* GET users listing. */
@@ -31,7 +32,7 @@ router.get('/', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores});
 });
 
 
@@ -173,8 +174,7 @@ router.get('/Resultados/Delete/:id', async (req, res, next) => {
 router.get('/Vistas', function(req, res, next) {
   
   let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
-
+  let title_categoria = title + categoria
   let option = ["Resultados/Imagenes",  "Goleo y Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
 
   let Menu = [
@@ -185,7 +185,7 @@ router.get('/Vistas', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Menu, Menu_jugadores});
 });
 
 

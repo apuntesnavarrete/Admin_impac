@@ -8,7 +8,6 @@ const $boton = document.querySelectorAll(".content_resul") // El botón que dese
 
 //  $objetivo = document.querySelectorAll(".content_resul")[0] // A qué le tomamos la foto
 // Nota: no necesitamos contenedor, pues vamos a descargarla
-console.log($boton[1])
 
 for(let i = 0; i < $boton.length; i++) {
 

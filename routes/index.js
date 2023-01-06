@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const pool = require('../database');
+
 
 let servidor = "http://localhost:8082/";
 let StyleSheet = "index.less"
+let Menu_jugadores = "Jugadores"
 
 
 /* GET home page. */
@@ -19,7 +22,6 @@ router.get('/', function(req, res, next) {
 
   let title = "Principal"
   let titulo_card = "Impacto"
-  let Menu_jugadores = "Jugadores"
 
   res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores});
 });
@@ -36,7 +38,7 @@ router.get('/ED', function(req, res, next) {
     { option: categorias[2] , link:link + categorias[2]},
 ];
 
-  res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+  res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
 });
 
 
@@ -53,7 +55,7 @@ router.get('/Aguigol', function(req, res, next) {
     { option: categorias[1] , link:link + categorias[1]},
     { option: categorias[2] , link:link + categorias[2]},
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
 
 });
 
@@ -92,20 +94,6 @@ router.get('/gemelas', function(req, res, next) {
 res.render('home', { StyleSheet , title , titulo_card:title , Menu});
 });
 
-router.get('/Jugadores', function(req, res, next) {
-  let title = "Jugadores"
-  let StyleSheet = "Resultados.less"
-
-res.render('Jugadores', {title, StyleSheet});
-});
-
-router.post('/Jugadores', function(req, res, next) {
-  let {Id, Nombre , Curp , Foto} = req.body;
-  console.log(Nombre)
-  console.log(Foto)
-
-res.redirect('http://localhost:8082/');
-});
 
 
 

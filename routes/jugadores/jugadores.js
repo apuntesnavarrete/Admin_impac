@@ -39,6 +39,11 @@ router.get('/', async(req, res, next)=> {
   res.render('Jugadores-vista', {tabla_jugadores});
   });
   
-
+  router.get('/Vista-json', async(req, res, next)=> {
+    
+    const tabla_jugadores = await pool.query("SELECT `ID_FB`, `Nombres` FROM `registro global heroes` ORDER BY ID_FB DESC ");
+  
+  res.json(tabla_jugadores);
+  });
 
   module.exports = router;

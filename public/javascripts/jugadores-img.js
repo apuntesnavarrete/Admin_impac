@@ -1,14 +1,9 @@
 let input = document.getElementById("buscador")
 
 
-
-
-console.log(input)
-
 input.addEventListener("keyup", function(e){
     console.log(e.target.value)
 })
-
 
 let res = document.getElementById("res")
 console.log(res)
@@ -21,43 +16,48 @@ fetch('http://localhost:8082/Jugadores/Vista-json')
   .then(data => {
 
 
+    //Convierte en mayusculas mi json 
+
+let i = 0
+  console.log(data[0].Nombres)
+    for (let item of data) {
+            data[i].Nombres = item.Nombres.toUpperCase()
+   //  console.log(item.Nombres.toUpperCase())
+i++
+    
+     }
+
+    //Detecta las pulsaciones del input
+
     input.addEventListener("keyup", function(e){
+
+      //borramos la impresion de la busqueda anterior
       while (res.firstChild) {
         res.removeChild(res.firstChild);
       }
 
+//si input e tarjet . value = 0 
+
+      
+    //filtramo nuestro json (dato)
+
+    let busqueda_input = e.target.value;
 
         let filtro = data.filter((dato)=>{
-            return dato.Nombres.includes(e.target.value)
-         
-
-           // return dato.Nombres == "Luis Enrique Tejada Aguilar"
-         })
+            
+            return dato.Nombres.includes(busqueda_input.toUpperCase())
+                  })
      
-      
-
-        
-         console.log(filtro)
+                  
 
          for (let item of filtro) {
+
+
           res.innerHTML += `
           
-            <p>  ${item.Nombres}          
+            <p> ${item.ID_FB} ${item.Nombres}           
           
           `
          }
     })
-
-    
-    
- 
-
   });
-/*
- 
-  console.log(content_list)
-  const elementoHtml = document.createElement("p")
-  
-  elementoHtml.textContent = filtro
-  content_list.appendChild(elementoHtml)
-  */

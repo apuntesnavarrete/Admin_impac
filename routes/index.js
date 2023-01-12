@@ -63,7 +63,7 @@ router.get('/Pro', function(req, res, next) {
   let title = "Pro"
   let link = servidor + title + "/";
 
-  let categorias = ["Sub-22", "Libre" , "Mixta" , "Femenil"]
+  let categorias = ["Sub22", "Libre" , "Mixta" , "Femenil"]
 
   let Menu = [
     { option: categorias[0] , link:link + categorias[0]},
@@ -72,7 +72,7 @@ router.get('/Pro', function(req, res, next) {
     { option: categorias[3] , link:link + categorias[3]},
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
 
 });
 

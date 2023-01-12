@@ -10,7 +10,7 @@ console.log(res)
 res.innerHTML = ""
 
 // Solicitud GET (Request).
-fetch('http://localhost:8082/Jugadores/Vista-json')
+fetch('http://localhost:8082/Jugadores/Json')
     // Exito
     .then(response => response.json())
   .then(data => {
@@ -37,11 +37,12 @@ i++
       }
 
 //si input e tarjet . value = 0 
-
+// lenth de la varibales
       
     //filtramo nuestro json (dato)
 
-    let busqueda_input = e.target.value;
+    let busqueda_input = e.target.value; //mayusculas todo
+// lenth de la varibale para evitar filtrar con solo 2 letras
 
         let filtro = data.filter((dato)=>{
             
@@ -50,13 +51,15 @@ i++
      
                   
 
+                  //Imprimimos en pantalla
+
          for (let item of filtro) {
 
 
           res.innerHTML += `
           
             <p> ${item.ID_FB} ${item.Nombres}           
-          
+          <img src="${item.Foto}">
           `
          }
     })

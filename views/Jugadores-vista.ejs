@@ -1,12 +1,17 @@
-<p>vista de jugadores</p>
-
-<input type="search" id="buscador">
+<div class="content"> 
+<p>Registro de Jugadores</p>
+<form action="/Jugadores" method="POST" class="form_resul">
+    <input type="number" name="Id" value="<%- Id_nuevo %>" placeholder="<%- Id_nuevo %>">
+    <input type="search" name="Nombre" value="" placeholder="Nombre del jugador" id="buscador">
+    <input type="text" name="Curp" value="" placeholder="Curp">
+    <button>Enviar</button>
+</form>
 
 <div id="res">
 
 </div>
     
-
+</div>
 
     <script src="/javascripts/jugadores-img.js"></script>
 

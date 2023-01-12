@@ -4,15 +4,15 @@ const pool = require('../../database');
 
 
 let servidor = "http://localhost:8082/";
-let title = "Aguigol"
-const Liga = 'Liga Aguigol'
-let categoria = "Libre"
-const css = 'general'
+let title = "Pro"
+const Liga = 'Liga ProChampions'
+let categoria = "Femenil"
+const css = 'general_pro'
 const StyleSheet = "index.less"
-let logo_liga = "Aguigol.png"
-let fondo = 'url("/images/fondoaguigol.png")';
-let color = 'rgb(218 204 76)'
-let jornada = "Semana"
+let logo_liga = "logochampions.png"
+let fondo = 'url("/images/fondochampions.jpg")';
+let color = 'rgb(230 161 197)'
+let jornada = "Jornada"
 let StyleSheet_Resultados = "Resultados.less"
 let Menu_jugadores = "Jugadores"
 
@@ -37,9 +37,9 @@ res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_cate
 
 
 router.get('/General', async(req, res, next)=> {
-  const vistas = await pool.query("SELECT * FROM `agui_general_libre_c22`");
+  const vistas = await pool.query("SELECT * FROM `pro_general_femenil_c22`");
 
-    const result = await pool.query("SELECT * FROM `agui_libre_c22`");
+    const result = await pool.query("SELECT * FROM `pro_jor_femenil_c22`");
 
 
 
@@ -121,8 +121,8 @@ vistas_ganadospenales = vistas_ganadospenales.reverse()
 router.get('/Resultados', async(req, res, next) =>{
 
   let Seccion = "Resultados"
-  const Planteles = await pool.query("SELECT * FROM `agui_general_libre_c22`");
-  const Jornadas = await pool.query("SELECT Jornada FROM `agui_jor_libre_c2022` GROUP BY Jornada");
+  const Planteles = await pool.query("SELECT * FROM `pro_general_femenil_c22`");
+  const Jornadas = await pool.query("SELECT Jornada FROM `pro_jor_femenil_c22` GROUP BY Jornada");
 
 res.render('Resultados',{StyleSheet:StyleSheet_Resultados , Liga:title , title, categoria, Seccion , Planteles,Jornadas});
 });
@@ -140,17 +140,17 @@ router.post('/Resultados', async(req, res, next)=> {
         {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
       ]
 
-      await pool.query("INSERT INTO agui_libre_c22 set ?",[Resultados[i][0]])
-      await pool.query("INSERT INTO agui_libre_c22 set ?",[Resultados[i][1]])
+      await pool.query("INSERT INTO pro_femenil_c22 set ?",[Resultados[i][0]])
+      await pool.query("INSERT INTO pro_femenil_c22 set ?",[Resultados[i][1]])
 
 
     }  
   }
-  res.redirect("http://localhost:8082/Aguigol/Libre/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/Pro/Femenil/Resultados/Imagenes");
 });
 
 router.get('/Resultados/Imagenes', async (req, res, next) => {
-  const resul = await pool.query("SELECT * FROM `agui_jor_libre_c2022` ORDER BY ID DESC LIMIT 30;");
+  const resul = await pool.query("SELECT * FROM `pro_jor_femenil_c22` ORDER BY ID DESC LIMIT 30;");
  
 
   res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
@@ -161,12 +161,12 @@ router.get('/Resultados/Imagenes', async (req, res, next) => {
 router.get('/Resultados/Delete/:id', async (req, res, next) => { 
   let regis_delete = req.params.id;
 
-  await pool.query("DELETE FROM `futbolce_zon58`.`agui_libre_c22` WHERE  `ID`= ?;",[regis_delete])
+  await pool.query("DELETE FROM `futbolce_zon58`.`pro_femenil_c22` WHERE  `ID`= ?;",[regis_delete])
   
 
   
 
-  res.redirect("http://localhost:8082/Aguigol/Libre/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/Pro/Femenil/Resultados/Imagenes");
 
 
 });
@@ -174,8 +174,7 @@ router.get('/Resultados/Delete/:id', async (req, res, next) => {
 router.get('/Vistas', function(req, res, next) {
   
   let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
-
+  let title_categoria = title + categoria
   let option = ["Resultados/Imagenes",  "Goleo y Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
 
   let Menu = [
@@ -186,7 +185,7 @@ router.get('/Vistas', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu, Menu_jugadores});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Menu, Menu_jugadores});
 });
 
 

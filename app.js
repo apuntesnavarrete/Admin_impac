@@ -15,6 +15,15 @@ var Jugadores = require('./routes/jugadores/jugadores');
 
 
 // Rutas de ligas (llamarlas)//
+
+//Pro
+
+let ProSub22 = require('./routes/pro/Sub22');
+let ProMixta = require('./routes/pro/Mixta');
+let ProFemenil = require('./routes/pro/Femenil');
+
+//Pro
+
 //ED
 var EdLibre = require('./routes/ed/edLibre');
 var EdFemenil = require('./routes/ed/edfemenil');
@@ -47,6 +56,14 @@ app.use('/Jugadores', Jugadores);
 // Rutas de ligas (EJECUTARLAS) //
 
 app.use('/', indexRouter);
+
+//Pro
+app.use('/Pro/Sub22', ProSub22);
+app.use('/Pro/Mixta', ProMixta);
+app.use('/Pro/Femenil', ProFemenil);
+
+//Pro
+
  //ED
 app.use('/Ed/Libre', EdLibre);
 app.use('/Ed/Femenil', EdFemenil);

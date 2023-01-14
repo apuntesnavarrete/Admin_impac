@@ -1,0 +1,74 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h3{
+    text-align: center;
+    margin: 2em 0;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.fotos{
+    width: 15px;
+}
+
+.form_resul{
+    width: 18em;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+
+}
+
+.form_resul input{
+    width: 100%;
+    height: 2em;
+    margin: 0.5em 0;
+}
+.form_resul button{
+    height: 2em;
+}
+
+.content-jugadores{
+    width: 18em;
+    margin: 1em;
+    padding: 0.5em;
+}
+
+.jugador_item{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    font-size: 0.8em;
+    justify-content: space-between;
+    height: 3em;
+    align-items: center;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    text-align: center;
+}
+
+.fotos:hover{
+    transform: scale(5);
+
+}
+
+.ID{
+    border: 1px solid black;
+    padding: 0.2em;
+}

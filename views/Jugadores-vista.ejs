@@ -1,5 +1,18 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel='stylesheet' href='/stylesheets/Jugadores.css' />
+    
+
+    <title>Document</title>
+</head>
+
+
 <div class="content"> 
-<p>Registro de Jugadores</p>
+<h3>Registro de Jugadores</h3>
 <form action="/Jugadores" method="POST" class="form_resul">
     <input type="number" name="Id" value="<%- Id_nuevo %>" placeholder="<%- Id_nuevo %>">
     <input type="search" name="Nombre" value="" placeholder="Nombre del jugador" id="buscador">
@@ -7,7 +20,7 @@
     <button>Enviar</button>
 </form>
 
-<div id="res">
+<div id="res" class="content-jugadores">
 
 </div>
     

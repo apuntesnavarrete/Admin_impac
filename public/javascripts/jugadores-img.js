@@ -44,23 +44,35 @@ i++
     let busqueda_input = e.target.value; //mayusculas todo
 // lenth de la varibale para evitar filtrar con solo 2 letras
 
-        let filtro = data.filter((dato)=>{
+if(busqueda_input.length > 2){
+
+  let filtro = data.filter((dato)=>{
             
-            return dato.Nombres.includes(busqueda_input.toUpperCase())
-                  })
-     
-                  
+    return dato.Nombres.includes(busqueda_input.toUpperCase())
+          })
 
-                  //Imprimimos en pantalla
-
-         for (let item of filtro) {
-
-
-          res.innerHTML += `
           
-            <p> ${item.ID_FB} ${item.Nombres}           
-          <img src="${item.Foto}">
-          `
-         }
+
+          //Imprimimos en pantalla
+
+ for (let item of filtro) {
+
+
+
+  res.innerHTML += `
+  
+    <div class="jugador_item">
+  <p class="ID"> <a href="http://localhost:8082/Jugadores/Delete/${item.ID_FB}"> ${item.ID_FB}  </a> </p> <p class="nombres">  ${item.Nombres}</p>         
+  <img src="${item.Foto}" class="fotos">
+  <div>
+  
+  `
+ }
+
+}else{
+ console.log("nesecito mas letras")
+}
+
+       
     })
   });

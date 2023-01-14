@@ -70,4 +70,20 @@ router.get('/', async(req, res, next)=> {
   res.json(tabla_jugadores);
   });
 
+
+  router.get('/Delete/:id', async (req, res, next) => { 
+    let regis_delete = req.params.id;
+ 
+    console.log(regis_delete)
+    await pool.query("DELETE FROM `futbolce_zon58`.`registro global heroes` WHERE  `ID_FB`= ?;",[regis_delete])
+    
+  
+    
+  
+    res.redirect("http://localhost:8082/Jugadores");
+  
+  
+  });
+
+
   module.exports = router;

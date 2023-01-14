@@ -63,13 +63,15 @@ router.get('/Pro', function(req, res, next) {
   let title = "Pro"
   let link = servidor + title + "/";
 
-  let categorias = ["Sub22", "Libre" , "Mixta" , "Femenil"]
+  let categorias = ["Sub22", "Libre" , "Mixta" , "Femenil" , "Sub18"]
 
   let Menu = [
     { option: categorias[0] , link:link + categorias[0]},
     { option: categorias[1] , link:link + categorias[1]},
     { option: categorias[2] , link:link + categorias[2]},
     { option: categorias[3] , link:link + categorias[3]},
+    { option: categorias[4] , link:link + categorias[4]},
+
 
 ];
 res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
@@ -91,7 +93,7 @@ router.get('/gemelas', function(req, res, next) {
 
 ];
 
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores});
 });
 
 

@@ -1,19 +1,26 @@
-
 var express = require('express');
 var router = express.Router();
 const pool = require('../../database');
 
 
 let servidor = "http://localhost:8082/";
+let title = "ED"
+const Liga = 'Liga ED'
+let categoria = "Femenil"
+const css = 'general_Ed'
+const StyleSheet = "index.less"
+let logo_liga = "logoed.png"
+let fondo = 'url("/images/fondoligaed.jpg")';
+let color = 'rgb(227, 127, 201)'
+let jornada = "Jornada"
+let StyleSheet_Resultados = "Resultados.less"
+let Menu_jugadores = "Jugadores"
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  let StyleSheet = "index.less"
-  let title = "ED"
-  let categoria = "Femenil"
   let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
+  let title_categoria = title + categoria
 
   let option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
 
@@ -25,18 +32,15 @@ router.get('/', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores});
 });
 
 
 router.get('/General', async(req, res, next)=> {
   const vistas = await pool.query("SELECT * FROM `ed_general_fem_c22`");
-    const categoria = 'Femenil C-2022';
 
     const result = await pool.query("SELECT * FROM `ed_jor_fem_c22`");
 
-    const css = 'general'
-    const Liga = 'Liga ED'
 
 
 //Inicializamos variables
@@ -113,57 +117,14 @@ vistas_ganadospenales = vistas_ganadospenales.reverse()
 });
 
 
-router.get('/', function(req, res, next) {
-  let StyleSheet = "index.less"
-  let title = "ED"
-  let categoria = "Femenil"
-  let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
-
-  let option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
-
-  let Menu = [
-    { option: option[0] , link:link + option[0]},
-    { option: option[1] , link:link + option[1]},
-    { option: option[2] , link:link + option[2]},
-    { option: option[3] , link:link + option[3]},
-    { option: option[4] , link:link + option[4]},
-
-];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
-});router.get('/', function(req, res, next) {
-  let StyleSheet = "index.less"
-  let title = "ED"
-  let categoria = "Femenil"
-  let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
-
-  let option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
-
-  let Menu = [
-    { option: option[0] , link:link + option[0]},
-    { option: option[1] , link:link + option[1]},
-    { option: option[2] , link:link + option[2]},
-    { option: option[3] , link:link + option[3]},
-    { option: option[4] , link:link + option[4]},
-
-];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
-});
 
 router.get('/Resultados', async(req, res, next) =>{
-  let StyleSheet = "Resultados.less"
-  let title = "Ed"
-  let categoria = "Femenil"
+
   let Seccion = "Resultados"
   const Planteles = await pool.query("SELECT * FROM `ed_general_fem_c22`");
   const Jornadas = await pool.query("SELECT Jornada FROM `ed_jor_fem_c22` GROUP BY Jornada");
 
-  console.log(Planteles)
-  console.log(Jornadas)
-
-
-res.render('Resultados',{StyleSheet , Liga:title , title, categoria, Seccion , Planteles,Jornadas});
+res.render('Resultados',{StyleSheet:StyleSheet_Resultados , Liga:title , title, categoria, Seccion , Planteles,Jornadas});
 });
 
 router.post('/Resultados', async(req, res, next)=> {
@@ -190,13 +151,7 @@ router.post('/Resultados', async(req, res, next)=> {
 
 router.get('/Resultados/Imagenes', async (req, res, next) => {
   const resul = await pool.query("SELECT * FROM `ed_jor_fem_c22` ORDER BY ID DESC LIMIT 30;");
-  console.log(resul)
-  let categoria = "Femenil"
-  let Liga = "Liga ED"
-  let logo_liga = "logoed.png"
-  let fondo = 'url("/images/fondoligaed.png")';
-  let color = 'rgb(223 114 199)'
-  let jornada = "Jornada"
+ 
 
   res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
 });
@@ -217,12 +172,9 @@ router.get('/Resultados/Delete/:id', async (req, res, next) => {
 });
 
 router.get('/Vistas', function(req, res, next) {
-  let StyleSheet = "index.less"
-  let title = "ED"
-  let categoria = "Femenil"
+  
   let link = servidor + title + "/" + categoria + "/" ;
-  title = title + categoria
-
+  let title_categoria = title + categoria
   let option = ["Resultados/Imagenes",  "Goleo y Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
 
   let Menu = [
@@ -233,7 +185,7 @@ router.get('/Vistas', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Menu, Menu_jugadores});
 });
 
 
@@ -250,3 +202,6 @@ router.get('/Planteles/Imagenes', function(req, res, next) {
 
 
 module.exports = router;
+
+
+

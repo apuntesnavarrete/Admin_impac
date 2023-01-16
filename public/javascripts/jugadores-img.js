@@ -42,12 +42,16 @@ i++
     //filtramo nuestro json (dato)
 
     let busqueda_input = e.target.value; //mayusculas todo
+
+    
 // lenth de la varibale para evitar filtrar con solo 2 letras
 
 if(busqueda_input.length > 2){
 
   let filtro = data.filter((dato)=>{
             
+
+
     return dato.Nombres.includes(busqueda_input.toUpperCase())
           })
 

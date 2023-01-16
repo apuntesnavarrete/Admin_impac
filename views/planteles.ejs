@@ -1,1 +1,46 @@
-<p> Planteles para Editar</p>
+<%- include('globales/cabecera.ejs') %>
+
+<div class="menu">
+
+  
+<h2 class="menu_titulo">Resultados</h2>
+
+
+<form action="/<%- Liga %>/<%- categoria %>/Planteles" method="POST" class="form_resul">
+   <select name="Equipo">
+      <% for(var i=0 ; i < Planteles.length; i++) { %>
+        <option value='<%- Planteles[i]["ID"] %>'><%- Planteles[i]["Equipo"] %></option>
+        <% } %>
+      </select>
+    <input type="text" name="Torneo" value="<%- Torneo_Abreviado %>" placeholder="<%- Torneo_Abreviado %>">
+
+    <div class="for_secc">
+      <input type="number" name="ID" value="ID" placeholder="ID" class="ID">
+      <input type="number" name="Dorsal" value="Dorsal" placeholder="Dorsal" class="Dorsal">
+     </div>
+
+     <div class="for_secc">
+        <input type="number" name="ID" value="ID" placeholder="ID" class="ID">
+        <input type="number" name="Dorsal" value="Dorsal" placeholder="Dorsal" class="Dorsal">
+       </div>
+
+       <div class="for_secc">
+        <input type="number" name="ID" value="ID" placeholder="ID" class="ID">
+        <input type="number" name="Dorsal" value="Dorsal" placeholder="Dorsal" class="Dorsal">
+       </div>
+
+       <div class="for_secc">
+        <input type="number" name="ID" value="ID" placeholder="ID" class="ID">
+        <input type="number" name="Dorsal" value="Dorsal" placeholder="Dorsal" class="Dorsal">
+       </div>
+
+       <div class="for_secc">
+        <input type="number" name="ID" value="ID" placeholder="ID" class="ID">
+        <input type="number" name="Dorsal" value="Dorsal" placeholder="Dorsal" class="Dorsal">
+       </div>
+
+       <button>Enviar</button>
+
+    </form>
+     </div>
+

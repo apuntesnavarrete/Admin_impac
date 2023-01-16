@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='/stylesheets/planteles-hoja.css' />
+
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="content_resul">
+    <div class="top">
+      <div class="content_rigth">
+        <p>Jornada _________________</p>
+         <p>Fecha _________________</p>
+      </div>
+      <div class="content_left">
+  
+        <h3>Hoja de Registros</h3>
+        <p><%- categoria %>.-<%- plantel[0].Nombre_Equipo %> </p>
+  
+      </div>
+    </div>
+   
+
+   
+    <% for(var i=0 ; i < plantel.length; i++) { %>
+     <div class="card_container">
+        <div class="card_interna">
+          <div class="card_left">
+            <h5 class="card_plante-id">Id.-<%- plantel[i].ID_FB %></h5> 
+            <img src="<%- plantel[i].Foto %>" class="card_perfil"> </img>
+            <div class="card-liga"><%- Liga %></div>
+          </div>
+
+          <div class="card_Rigth">
+            <h4 class="card_nombre"><%- plantel[i].Nombres %></h5>
+              <h5 class="card_escudo"><img src="<%- plantel[i].Escudo %>" width="40px" height="40px" class="img-thumbnail"></img><%- plantel[i].Nombre_Equipo %></h5>
+              <p class="card_Torneo">Torneo <%- categoria %> <%- plantel[i].Torneo %></p>
+              <p class="card_Dorsal">Dorsal .- <%- plantel[i].Dorsal %></p>
+
+          </div>
+
+
+         
+        
+
+        </div>
+    
+      
+     </div>
+              
+  <% } %>
+
+  <div class="bottom">
+    <div class="content_rigth">
+      <p>Marcador Final _________________</p>
+      
+    </div>
+    <div class="content_left">
+
+      <h3>Firma______________________</h3>
+
+    </div>
+  </div>
+
+  <p>Apartir de aqui puede ser usado por el equipo para hacer algun tipo de reporte o bien se puede utilizar el reverso de la hoja.</p>
+
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script> 
+
+  
+
+<script src="/javascripts/descargar-img.js"></script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+const { Router } = require('express');
 var express = require('express');
 var router = express.Router();
 const pool = require('../../database');
@@ -15,7 +16,7 @@ let color = 'rgb(74, 176, 99)'
 let jornada = "Jornada"
 let StyleSheet_Resultados = "Resultados.less"
 let Menu_jugadores = "Jugadores"
-
+let Torneo_Abreviado = "C2022"
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -189,16 +190,58 @@ res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Me
 });
 
 
-router.get('/Planteles', function(req, res, next) {
-  
-res.render('Planteles');
+router.get('/Planteles', async(req, res, next)=> {
+  const Planteles = await pool.query("SELECT * FROM `ed_general_libre_c22`");
+
+res.render('Planteles' ,{Liga:title , categoria,title,StyleSheet,Planteles,Torneo_Abreviado});
 });
 
-router.get('/Planteles/Imagenes', function(req, res, next) {
-  
-  res.render('Planteles-img');
-  });
+router.post('/Planteles', async(req, res, next)=> {
+  let {Equipo , Torneo , ID , Dorsal} = req.body;
 
+  console.log(Equipo)
+  console.log(ID)
+  const Planteles = await pool.query("SELECT * FROM `ed_general_libre_c22`");
+  let Resultados = []
+
+  for (let i = 0; i < 5; i++) {
+    if(ID[i] == ""){
+      //crear el como salir del bucle cuando este vacio
+    } else{
+      Resultados[i] = [
+        {Equipo,Torneo, ID:ID[i],Dorsal:Dorsal[i],ID_INGRESO:ID[i] }
+      ]
+
+      console.log(Resultados[i])
+      await pool.query("INSERT INTO `ed planteles libre c22` set ?",[Resultados[i][0]])
+     
+
+
+    }  
+  }
+
+
+res.render('Planteles' ,{Liga:title , categoria,title,StyleSheet,Planteles,Torneo_Abreviado});
+});
+
+  
+router.get('/Planteles/Imagenes', async(req, res, next)=> {
+  
+    const plantel = await pool.query("SELECT * FROM `futbolce_zon58`.`ed_planteles_libre_c22_v` ORDER BY `Equipo` DESC");
+  
+    res.render('planteles-img',{plantel ,Liga , categoria});
+      });
+
+
+      router.get('/Planteles/Imagenes/:plantel', async(req, res, next)=> {
+  
+        let equipo = req.params.plantel
+
+        console.log(equipo)
+       const plantel = await pool.query("SELECT * FROM `futbolce_zon58`.`ed_planteles_libre_c22_v` WHERE `Nombre_Equipo`=? ORDER BY `ID` ASC" , [equipo]);
+      
+        res.render('planteles-hoja',{plantel ,Liga , categoria});
+          });
 
 
 module.exports = router;

@@ -6,6 +6,8 @@ const pool = require('../database');
 let servidor = "http://localhost:8082/";
 let StyleSheet = "index.less"
 let Menu_jugadores = "Jugadores"
+let Menu_Equipos = "Equipos"
+let Menu_Sancionados = "Sancionados"
 
 
 /* GET home page. */
@@ -23,7 +25,7 @@ router.get('/', function(req, res, next) {
   let title = "Principal"
   let titulo_card = "Impacto"
 
-  res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores});
+  res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores , Menu_Equipos , Menu_Sancionados, Menu_jugadores});
 });
 
 router.get('/ED', function(req, res, next) {
@@ -38,7 +40,7 @@ router.get('/ED', function(req, res, next) {
     { option: categorias[2] , link:link + categorias[2]},
 ];
 
-  res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
+  res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
 });
 
 
@@ -55,7 +57,7 @@ router.get('/Aguigol', function(req, res, next) {
     { option: categorias[1] , link:link + categorias[1]},
     { option: categorias[2] , link:link + categorias[2]},
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
 
 });
 
@@ -74,7 +76,7 @@ router.get('/Pro', function(req, res, next) {
 
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
 
 });
 
@@ -93,7 +95,7 @@ router.get('/gemelas', function(req, res, next) {
 
 ];
 
-res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
 });
 
 

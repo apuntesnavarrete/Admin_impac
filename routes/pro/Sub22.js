@@ -146,7 +146,7 @@ router.post('/Resultados', async(req, res, next)=> {
 
     }  
   }
-  res.redirect("http://localhost:8082/Pro/Sub23/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/Pro/Sub22/Resultados/Imagenes");
 });
 
 router.get('/Resultados/Imagenes', async (req, res, next) => {
@@ -166,7 +166,7 @@ router.get('/Resultados/Delete/:id', async (req, res, next) => {
 
   
 
-  res.redirect("http://localhost:8082/Pro/Sub23/Resultados/Imagenes");
+  res.redirect("http://localhost:8082/Pro/Sub22/Resultados/Imagenes");
 
 
 });

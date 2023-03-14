@@ -48,43 +48,21 @@ router.get('/Resultados',function(req,res,next){
 router.post('/Resultados',function(req,res,next){
   myClassInstance.Resultados_post(req,res)
 });
-/*
-router.get('/Resultados/Imagenes' , Resultados_vista);
-*/
+
 router.get('/Resultados/Imagenes',function(req,res,next){
   myClassInstance.Resultados_vista(req,res)
 });
 
 
-router.get('/Resultados/Delete/:id', async (req, res, next) => { 
-  let regis_delete = req.params.id;
-
-  await pool.query("DELETE FROM `futbolce_zon58`.`pro_libre_a23` WHERE  `ID`= ?;",[regis_delete])
-  
-
-  
-
-  res.redirect("http://localhost:8082/ED/Libre/Resultados/Imagenes");
-
-
+router.get('/Resultados/Delete/:id',function(req,res,next){
+  myClassInstance.Resultados_delete_id(req,res)
 });
 
-router.get('/Vistas', function(req, res, next) {
-  
-  let link = servidor + title + "/" + categoria + "/" ;
-  let title_categoria = title + categoria
-  let option = ["Resultados/Imagenes",  "Goleo y Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
 
-  let Menu = [
-    { option: option[0] , link:link + option[0]},
-    { option: option[1] , link:link + option[1]},
-    { option: option[2] , link:link + option[2]},
-    { option: option[3] , link:link + option[3]},
-    { option: option[4] , link:link + option[4]},
-
-];
-res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Menu, Menu_jugadores, Menu_Equipos, Menu_Sancionados});
+router.get('/Vistas',function(req,res,next){
+  myClassInstance.Menu_secundario(req,res)
 });
+
 
 ///Seccion planteles
 

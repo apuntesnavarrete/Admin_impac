@@ -26,6 +26,7 @@ class MyClass {
         this.title_categoria = this.title + this.categoria
 
         this.option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
+        this.option_vistas = ["Resultados/Imagenes",  "Goleo y Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
 
         this.link = this.servidor + this.title + "/" + this.categoria + "/" ;
 
@@ -34,10 +35,11 @@ class MyClass {
         this.consulta_vista_jornadas_conteo = "SELECT Jornada FROM `" + this.title + "_jor_libre_a2023` GROUP BY Jornada";
         this.consulta_insert_resultado = "INSERT INTO " + this.title  + "_libre_a23 set ?"
         this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_libre_a2023` ORDER BY ID DESC LIMIT 30";
-
+        this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_libre_a23` WHERE `ID`= ?;";
+        
        
         this.redirec_resultados = this.servidor + this.title + "/"+ this.categoria + "/Resultados/Imagenes"
-   
+        
     }
  
     principal(req, res) {
@@ -98,7 +100,12 @@ class MyClass {
             res.render('Resultados-img', {resul,categoria:this.categoria,Liga:this.liga,logo_liga:this.logo_liga,fondo:this.fondo,color:this.color,jornada:this.jornada});
               }
 
+              async Resultados_delete_id(req,res,next){
+                let regis_delete = req.params.id;
+                await pool.query(this.consulta_jornadas_delete_id,[regis_delete])
+                res.redirect(this.redirec_resultados);
 
+              }
 
           async general(req, res, next) {
   
@@ -174,7 +181,18 @@ class MyClass {
             }
           
 
+            Menu_secundario(req, res) {
 
+
+                let Menu = [];
+                for (let i = 0; i < this.option_vistas.length; i++) {
+                  Menu.push({ option: this.option_vistas[i], link: this.link + this.option_vistas[i] });
+                }
+        
+                console.log(Menu)
+        
+                res.render('home', { StyleSheet:this.StyleSheet , title:this.title_categoria , titulo_card:this.title_categoria , Menu , Menu_jugadores:this.Menu_jugadores, Menu_Equipos:this.Menu_Equipos, Menu_Sancionados:this.Menu_Sancionados});
+            }
 
 
   }

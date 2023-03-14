@@ -20,10 +20,10 @@ router.get('/', async(req, res, next)=> {
     console.log(Nombre)
     console.log(Curp)
   
-    let Foto = `/img/${Id}.png` 
+    let Foto = `/img/${Nombre}.png` 
     console.log(Foto)
   
-  let Jugador = {ID_FB:Id, Nombres:Nombre ,Foto }
+  let Jugador = {id_plantel:Id, Nombre_Equipo:Nombre ,Escudo:Foto }
   
   console.log(Jugador)
   await pool.query("INSERT INTO `registros global equipo heroes` set ?",[Jugador])

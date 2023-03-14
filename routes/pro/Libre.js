@@ -3,6 +3,11 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../../database');
 
+const MyClass = require("../../class/prueba");
+const myClassInstance = new MyClass("http://localhost:8082/" , 
+"Pro" , "ProChampions" , "Libre" ,'rgb(230 161 197)', "Jornada", "C2022");
+
+const { general , Resultados, Resultados_post ,Resultados_vista} = require('../../controllers/home');
 
 
 let servidor = "http://localhost:8082/";
@@ -16,154 +21,45 @@ let fondo = 'url("/images/fondochampions.jpg")';
 let color = 'rgb(230 161 197)'
 let jornada = "Jornada"
 let StyleSheet_Resultados = "Resultados.less"
-let Menu_jugadores = "Jugadores"
 let Torneo_Abreviado = "C2022"
+//Menu Inferior
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  let link = servidor + title + "/" + categoria + "/" ;
-  let title_categoria = title + categoria
 
-  let option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
 
-  let Menu = [
-    { option: option[0] , link:link + option[0]},
-    { option: option[1] , link:link + option[1]},
-    { option: option[2] , link:link + option[2]},
-    { option: option[3] , link:link + option[3]},
-    { option: option[4] , link:link + option[4]},
+let Menu_jugadores = "Jugadores"
+let Menu_Equipos = "Equipos"
+let Menu_Sancionados = "Sancionados"
 
-];
-res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores});
+
+
+
+router.get('/',function(req,res,next){
+  myClassInstance.principal(req,res)
 });
 
-
-router.get('/General', async(req, res, next)=> {
-  const vistas = await pool.query("SELECT * FROM `ed_general_libre_c22`");
-
-    const result = await pool.query("SELECT * FROM `ed_jor_libre_c2022`");
-
-
-
-//Inicializamos variables
-    vistas_ganados = []
-    vistas_Perdidos = []
-    vistas_ganadospenales = []
-    vistas_Perdidospenales = []
-
-  //Aislamos los ids de equipos
-const Equipos = vistas.map((item) =>{
-  return item.ID
-})
- console.log(Equipos)
-
-Equipos.forEach(index => {
-  
-  console.log("Index de la tabla general")
-  console.log(vistas[0])
-
-
-  console.log(index)
- //Filtramo el equipo  
-
- const filteritems = result.filter((item)=>{
-  return item.Equipo == index
-})
-
- //Filtramos
-
- const filterpg = filteritems.filter((item)=>{
-  return item.Puntos == 3
-})
-
-const filterppp = filteritems.filter((item)=>{
-  return item.Puntos == 1
-})
-
-const filterpgp = filteritems.filter((item)=>{
-  return item.Puntos == 2
-})
-const filterpp = filteritems.filter((item)=>{
-  return item.Puntos == 0
-})
-
-//contamos   
-
-pg = filterpg.length
-pgp = filterpgp.length
-ppp = filterppp.length
-pp = filterpp.length
-
-//Creamos un array para ganados perdimos etc
-
-vistas_ganados.splice(0 , 0 , pg); 
-vistas_Perdidos.splice(0 , 0 , pp); 
-vistas_Perdidospenales.splice(0 , 0 , ppp); 
-vistas_ganadospenales.splice(0 , 0 , pgp); 
-
-
-
+router.get('/general',function(req,res,next){
+  myClassInstance.general(req,res)
 });
 
-vistas_ganados = vistas_ganados.reverse()
-vistas_Perdidos = vistas_Perdidos.reverse()
-vistas_Perdidospenales = vistas_Perdidospenales.reverse()
-vistas_ganadospenales = vistas_ganadospenales.reverse()
-
-
-    
-
-  
-    
-    res.render('general',{vistas,categoria,result,vistas_ganados,vistas_Perdidos,vistas_Perdidospenales,vistas_ganadospenales,css,Liga})
+router.get('/Resultados',function(req,res,next){
+  myClassInstance.Resultados(req,res)
 });
 
-
-
-router.get('/Resultados', async(req, res, next) =>{
-
-  let Seccion = "Resultados"
-  const Planteles = await pool.query("SELECT * FROM `ed_general_libre_c22`");
-  const Jornadas = await pool.query("SELECT Jornada FROM `ed_jor_libre_c2022` GROUP BY Jornada");
-
-res.render('Resultados',{StyleSheet:StyleSheet_Resultados , Liga:title , title, categoria, Seccion , Planteles,Jornadas});
+router.post('/Resultados',function(req,res,next){
+  myClassInstance.Resultados_post(req,res)
 });
-
-router.post('/Resultados', async(req, res, next)=> {
-  let {Equipo,Equipo_2,GF,GC,Jornada,Fecha,Puntos,Puntos_rv} = req.body;
-  let Resultados = []
-  
-  for (let i = 0; i < 5; i++) {
-    if(GF[i] == ""){
-      //crear el como salir del bucle cuando este vacio
-    } else{
-      Resultados[i] = [
-        {Jornada,Equipo:Equipo[i],GF:GF[i],GC:GC[i],Puntos:Puntos[i], Rival:Equipo_2[i],Fecha},
-        {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
-      ]
-
-      await pool.query("INSERT INTO libre_c2022_ed set ?",[Resultados[i][0]])
-      await pool.query("INSERT INTO libre_c2022_ed set ?",[Resultados[i][1]])
-
-
-    }  
-  }
-  res.redirect("http://localhost:8082/ED/Libre/Resultados/Imagenes");
+/*
+router.get('/Resultados/Imagenes' , Resultados_vista);
+*/
+router.get('/Resultados/Imagenes',function(req,res,next){
+  myClassInstance.Resultados_vista(req,res)
 });
-
-router.get('/Resultados/Imagenes', async (req, res, next) => {
-  const resul = await pool.query("SELECT * FROM `ed_jor_libre_c2022` ORDER BY ID DESC LIMIT 30;");
- 
-
-  res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
-});
-
 
 
 router.get('/Resultados/Delete/:id', async (req, res, next) => { 
   let regis_delete = req.params.id;
 
-  await pool.query("DELETE FROM `futbolce_zon58`.`libre_c2022_ed` WHERE  `ID`= ?;",[regis_delete])
+  await pool.query("DELETE FROM `futbolce_zon58`.`pro_libre_a23` WHERE  `ID`= ?;",[regis_delete])
   
 
   
@@ -187,7 +83,7 @@ router.get('/Vistas', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Menu, Menu_jugadores});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Menu, Menu_jugadores, Menu_Equipos, Menu_Sancionados});
 });
 
 ///Seccion planteles

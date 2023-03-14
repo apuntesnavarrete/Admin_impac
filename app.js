@@ -36,6 +36,8 @@ let ProSub18 = require('./routes/pro/Sub18');
 var EdLibre = require('./routes/ed/edLibre');
 var EdFemenil = require('./routes/ed/edfemenil');
 var EdMixta = require('./routes/ed/edMixta');
+var EdSub21 = require('./routes/ed/edsub21');
+
  //ED
 
  //Aguigol
@@ -86,6 +88,8 @@ app.use('/Pro/Libre', ProLibre);
 app.use('/Ed/Libre', EdLibre);
 app.use('/Ed/Femenil', EdFemenil);
 app.use('/Ed/Mixta', EdMixta);
+app.use('/Ed/Sub21', EdSub21);
+
   //ED
 
   //Aguigol

@@ -25,22 +25,24 @@ router.get('/', function(req, res, next) {
   let title = "Principal"
   let titulo_card = "Impacto"
 
-  res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores , Menu_Equipos , Menu_Sancionados, Menu_jugadores});
+  res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores , Menu_Equipos , Menu_Sancionados});
 });
 
 router.get('/ED', function(req, res, next) {
   let title = "Ed"
   let link = servidor + title + "/";
 
-  let categorias = ["Libre", "Mixta" , "Femenil"]
+  let categorias = ["Libre", "Mixta" , "Femenil",  "Sub21"]
 
   let Menu = [
     { option: categorias[0] , link:link + categorias[0]},
     { option: categorias[1] , link:link + categorias[1]},
     { option: categorias[2] , link:link + categorias[2]},
+    { option: categorias[3] , link:link + categorias[3]},
+
 ];
 
-  res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
+  res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 });
 
 
@@ -57,7 +59,7 @@ router.get('/Aguigol', function(req, res, next) {
     { option: categorias[1] , link:link + categorias[1]},
     { option: categorias[2] , link:link + categorias[2]},
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos });
 
 });
 
@@ -76,7 +78,7 @@ router.get('/Pro', function(req, res, next) {
 
 
 ];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 
 });
 
@@ -95,7 +97,7 @@ router.get('/gemelas', function(req, res, next) {
 
 ];
 
-res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores,Menu_Equipos , Menu_Sancionados, Menu_jugadores});
+res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 });
 
 

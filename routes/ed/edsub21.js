@@ -7,7 +7,7 @@ const pool = require('../../database');
 let servidor = "http://localhost:8082/";
 let title = "ED"
 const Liga = 'Liga ED'
-let categoria = "Libre"
+let categoria = "Sub21"
 const css = 'general_Ed'
 const StyleSheet = "index.less"
 let logo_liga = "logoed.png"
@@ -42,9 +42,9 @@ res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_cate
 
 
 router.get('/General', async(req, res, next)=> {
-  const vistas = await pool.query("SELECT * FROM `ed_general_libre_c22`");
+  const vistas = await pool.query("SELECT * FROM `ed_general_sub21_a23`");
 
-    const result = await pool.query("SELECT * FROM `ed_jor_libre_c2022`");
+    const result = await pool.query("SELECT * FROM `ed_jor_sub21_a2023`");
 
 
 
@@ -126,8 +126,8 @@ vistas_ganadospenales = vistas_ganadospenales.reverse()
 router.get('/Resultados', async(req, res, next) =>{
 
   let Seccion = "Resultados"
-  const Planteles = await pool.query("SELECT * FROM `ed_general_libre_c22`");
-  const Jornadas = await pool.query("SELECT Jornada FROM `ed_jor_libre_c2022` GROUP BY Jornada");
+  const Planteles = await pool.query("SELECT * FROM `ed_general_sub21_a23`");
+  const Jornadas = await pool.query("SELECT Jornada FROM `ed_jor_sub21_a2023` GROUP BY Jornada");
 
 res.render('Resultados',{StyleSheet:StyleSheet_Resultados , Liga:title , title, categoria, Seccion , Planteles,Jornadas});
 });
@@ -145,8 +145,8 @@ router.post('/Resultados', async(req, res, next)=> {
         {Jornada,Equipo:Equipo_2[i],GF:GC[i],GC:GF[i],Puntos:Puntos_rv[i],Rival:Equipo[i],Fecha}
       ]
 
-      await pool.query("INSERT INTO libre_c2022_ed set ?",[Resultados[i][0]])
-      await pool.query("INSERT INTO libre_c2022_ed set ?",[Resultados[i][1]])
+      await pool.query("INSERT INTO ed_sub21_a23 set ?",[Resultados[i][0]])
+      await pool.query("INSERT INTO ed_sub21_a23 set ?",[Resultados[i][1]])
 
 
     }  
@@ -155,7 +155,7 @@ router.post('/Resultados', async(req, res, next)=> {
 });
 
 router.get('/Resultados/Imagenes', async (req, res, next) => {
-  const resul = await pool.query("SELECT * FROM `ed_jor_libre_c2022` ORDER BY ID DESC LIMIT 30;");
+  const resul = await pool.query("SELECT * FROM `ed_jor_sub21_a2023` ORDER BY ID DESC LIMIT 30;");
  
 
   res.render('Resultados-img', {resul,categoria,Liga,logo_liga,fondo,color,jornada});
@@ -166,7 +166,7 @@ router.get('/Resultados/Imagenes', async (req, res, next) => {
 router.get('/Resultados/Delete/:id', async (req, res, next) => { 
   let regis_delete = req.params.id;
 
-  await pool.query("DELETE FROM `futbolce_zon58`.`libre_c2022_ed` WHERE  `ID`= ?;",[regis_delete])
+  await pool.query("DELETE FROM `futbolce_zon58`.`ed_sub21_a23` WHERE  `ID`= ?;",[regis_delete])
   
 
   
@@ -197,7 +197,7 @@ res.render('home', { StyleSheet , title:title_categoria , titulo_card:title , Me
 
 
 router.get('/Planteles', async(req, res, next)=> {
-  const Planteles = await pool.query("SELECT * FROM `ed_general_libre_c22`");
+  const Planteles = await pool.query("SELECT * FROM `ed_general_sub21_a23`");
 
 res.render('Planteles' ,{Liga:title , categoria,title,StyleSheet,Planteles,Torneo_Abreviado});
 });
@@ -207,7 +207,7 @@ router.post('/Planteles', async(req, res, next)=> {
 
   console.log(Equipo)
   console.log(ID)
-  const Planteles = await pool.query("SELECT * FROM `ed_general_libre_c22`");
+  const Planteles = await pool.query("SELECT * FROM `ed_general_sub21_a23`");
   let Resultados = []
 
   for (let i = 0; i < 5; i++) {
@@ -251,6 +251,3 @@ router.get('/Planteles/Imagenes', async(req, res, next)=> {
 
 
 module.exports = router;
-
-
-

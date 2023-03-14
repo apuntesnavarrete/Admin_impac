@@ -14,8 +14,10 @@ let fondo = 'url("/images/fondochampions.jpg")';
 let color = 'rgb(255, 195, 0)'
 let jornada = "Jornada"
 let StyleSheet_Resultados = "Resultados.less"
+//Menu Inferior
 let Menu_jugadores = "Jugadores"
-
+let Torneo_Abreviado = "C2022"
+let Menu_Sancionados = "Sancionados"
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -32,7 +34,7 @@ router.get('/', function(req, res, next) {
     { option: option[4] , link:link + option[4]},
 
 ];
-res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores});
+res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores, Torneo_Abreviado, Menu_Sancionados});
 });
 
 

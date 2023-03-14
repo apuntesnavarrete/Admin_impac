@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../../database');
 
+const MyClass = require("../../class/prueba");
+const myClassInstance = new MyClass("http://localhost:8082/" , 
+"Pro" , "ProChampions" , "Femenil" ,'rgb(230 161 197)', "Jornada", "C2022");
 
 let servidor = "http://localhost:8082/";
 let title = "Pro"
@@ -18,6 +21,11 @@ let Menu_jugadores = "Jugadores"
 
 
 /* GET users listing. */
+router.get('/',function(req,res,next){
+  myClassInstance.principal(req,res)
+});
+
+/*
 router.get('/', function(req, res, next) {
   let link = servidor + title + "/" + categoria + "/" ;
   let title_categoria = title + categoria
@@ -34,7 +42,7 @@ router.get('/', function(req, res, next) {
 ];
 res.render('home', { StyleSheet , title:title_categoria , titulo_card:title_categoria , Menu , Menu_jugadores});
 });
-
+*/
 
 router.get('/General', async(req, res, next)=> {
   const vistas = await pool.query("SELECT * FROM `pro_general_femenil_c22`");

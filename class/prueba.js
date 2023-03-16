@@ -8,7 +8,7 @@ class MyClass {
     constructor(servidor,title,liga, categoria ,color , jornada,Torneo_Abreviado) {
         this.servidor = servidor;
         this.title = title;
-        this.liga = "Liga" + liga;
+        this.liga = "Liga " + liga;
         this.categoria = categoria
         this.css = "general_" + title
         this.StyleSheet = "index.less"
@@ -30,14 +30,17 @@ class MyClass {
 
         this.link = this.servidor + this.title + "/" + this.categoria + "/" ;
 
-        this.consulta_vista_general = "SELECT * FROM `" + this.title + "_general_libre_a23`";
-        this.consulta_vista_jornadas = "SELECT * FROM `" + this.title + "_jor_libre_a2023`";
-        this.consulta_vista_jornadas_conteo = "SELECT Jornada FROM `" + this.title + "_jor_libre_a2023` GROUP BY Jornada";
-        this.consulta_insert_resultado = "INSERT INTO " + this.title  + "_libre_a23 set ?"
-        this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_libre_a2023` ORDER BY ID DESC LIMIT 30";
-        this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_libre_a23` WHERE `ID`= ?;";
-        
-       
+        this.consulta_vista_general = "SELECT * FROM `" + this.title + "_general_" + this.categoria + "_" + this.Torneo_Abreviado + "`";
+        this.consulta_vista_jornadas = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "`";
+        this.consulta_vista_jornadas_conteo = "SELECT Jornada FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` GROUP BY Jornada";
+        this.consulta_insert_resultado = "INSERT INTO " + this.title  + "_" + this.categoria + "_" + this.Torneo_Abreviado + " set ?"
+        this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` ORDER BY ID DESC LIMIT 30";
+        this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
+        this.consulta_planteles_vistas = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "`"
+        this.consulta_planteles_insert_id = "INSERT INTO `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` set ?"
+        this.consulta_planteles_img = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` ORDER BY `Equipo` DESC"
+        this.consulta_planteles_img_id = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `Nombre_Equipo`=? ORDER BY `ID` ASC"
+
         this.redirec_resultados = this.servidor + this.title + "/"+ this.categoria + "/Resultados/Imagenes"
         
     }
@@ -56,14 +59,14 @@ class MyClass {
     }
 
     async Resultados(req, res) {
-        console.log(this.consulta_vista_general)
+      console.log(this.consulta_vista_general)
+      console.log(this.consulta_vista_jornadas_conteo)
 
         let Seccion = "Resultados"
         const vistas = await pool.query(this.consulta_vista_general);
         const Jornadas = await pool.query(this.consulta_vista_jornadas_conteo);
       
-        console.log(this.consulta_vista_general)
-        console.log(Jornadas)
+        
 
       res.render('Resultados',{StyleSheet:this.StyleSheet_Resultados , Liga:this.title , title:this.title, categoria:this.categoria, Seccion , Planteles:vistas,Jornadas});
           }
@@ -109,6 +112,8 @@ class MyClass {
 
           async general(req, res, next) {
   
+            console.log(this.consulta_vista_general)
+            console.log(this.consulta_vista_jornadas)
 
             const vistas = await pool.query(this.consulta_vista_general);
             const result = await pool.query(this.consulta_vista_jornadas);
@@ -194,6 +199,56 @@ class MyClass {
                 res.render('home', { StyleSheet:this.StyleSheet , title:this.title_categoria , titulo_card:this.title_categoria , Menu , Menu_jugadores:this.Menu_jugadores, Menu_Equipos:this.Menu_Equipos, Menu_Sancionados:this.Menu_Sancionados});
             }
 
+            async Planteles(req,res){
+
+              const Planteles = await pool.query(this.consulta_vista_general);
+
+              res.render('Planteles' ,{Liga:this.title , categoria:this.categoria,title:this.title,StyleSheet:this.StyleSheet,Planteles,Torneo_Abreviado:this.Torneo_Abreviado});
+
+            }
+
+            async Planteles_Post(req,res){
+              let {Equipo , Torneo , ID , Dorsal} = req.body;
+
+              console.log(Equipo)
+              console.log(ID)
+              const Planteles = await pool.query(this.consulta_planteles_vistas);
+              let Resultados = []
+            
+              for (let i = 0; i < 5; i++) {
+                if(ID[i] == ""){
+                  //crear el como salir del bucle cuando este vacio
+                } else{
+                  Resultados[i] = [
+                    {Equipo,Torneo, ID:ID[i],Dorsal:Dorsal[i],ID_INGRESO:ID[i] }
+                  ]
+            
+                  console.log(Resultados[i])
+                  await pool.query(this.consulta_planteles_insert_id,[Resultados[i][0]])
+                 
+            
+            
+                }  
+              }
+            
+            
+            res.render('Planteles' ,{Liga:this.title , categoria:this.categoria ,title:this.title,StyleSheet:this.StyleSheet,Planteles,Torneo_Abreviado:this.Torneo_Abreviado});
+            }
+
+            async Planteles_imagenes(req,res){
+              const plantel = await pool.query(this.consulta_planteles_img);
+  
+             res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria});
+            }
+
+            async planteles_imgenes_equipo(req,res){
+              let equipo = req.params.plantel
+
+              console.log(equipo)
+             const plantel = await pool.query(this.consulta_planteles_img_id , [equipo]);
+            
+              res.render('planteles-hoja',{plantel ,Liga:this.liga , categoria:this.categoria});
+            }
 
   }
   

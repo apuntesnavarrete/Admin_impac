@@ -241,7 +241,7 @@ class MyClass {
              res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria});
             }
 
-            async planteles_imgenes_equipo(req,res){
+            async planteles_imagenes_equipo(req,res){
               let equipo = req.params.plantel
 
               console.log(equipo)

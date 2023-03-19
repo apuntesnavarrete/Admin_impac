@@ -1,16 +1,45 @@
-var mysql = require('mysql');
-const {database } = require('./keys')
-const {promisify} = require('util');
+const mysql = require('mysql');
 
+const pool = mysql.createPool({
+  host     : 'localhost',
+       user     : 'root',
+       password : 'toor',
+       database : 'futbolce_zon58'
+  // otras opciones de configuración, si las tienes
+});
 
+pool.getConnection((error, connection) => {
+  if (error) {
+    console.error('Error al conectarse a la base de datos: ', error);
+    return;
+  }
+  console.log('Conexión exitosa a la base de datos');
+  connection.release();
+});
 
-var pool  = mysql.createPool(database);
- 
-pool.getConnection((err, connection) =>{
-  if (connection) connection.release();
-console.log('Base de datos conectada');
-return
+pool.query = (query, values) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((error, connection) => {
+      if (error) {
+        reject(error);
+        return;
+      }
 
-})
-pool.query = promisify(pool.query); 
+      connection.query(query, values, (error, results) => {
+        connection.release();
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  });
+};
+
+process.on('exit', () => {
+  pool.end();
+});
+
 module.exports = pool;
+

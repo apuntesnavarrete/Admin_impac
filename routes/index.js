@@ -30,17 +30,16 @@ router.get('/', function(req, res, next) {
 
 router.get('/ED', function(req, res, next) {
   let title = "Ed"
-  let link = servidor + title + "/";
+  const link = `${servidor}${title}/`;
 
   let categorias = ["Libre", "Mixta" , "Femenil",  "Sub21"]
 
-  let Menu = [
-    { option: categorias[0] , link:link + categorias[0]},
-    { option: categorias[1] , link:link + categorias[1]},
-    { option: categorias[2] , link:link + categorias[2]},
-    { option: categorias[3] , link:link + categorias[3]},
-
-];
+  let Menu = categorias.map(categoria => {
+    return {
+      option: categoria,
+      link: link + categoria
+    };
+  });
 
   res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 });
@@ -50,34 +49,35 @@ router.get('/ED', function(req, res, next) {
 router.get('/Aguigol', function(req, res, next) {
 
   let title = "Aguigol"
-  let link = servidor + title + "/";
+  const link = `${servidor}${title}/`;
 
   let categorias = ["Sub22", "Libre" , "Mixta"]
 
-  let Menu = [
-    { option: categorias[0] , link:link + categorias[0]},
-    { option: categorias[1] , link:link + categorias[1]},
-    { option: categorias[2] , link:link + categorias[2]},
-];
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos });
+  let Menu = categorias.map(categoria => {
+    return {
+      option: categoria,
+      link: link + categoria
+    };
+  });
+
+console.log(Menu)
+
+res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 
 });
 
 router.get('/Pro', function(req, res, next) {
   let title = "Pro"
-  let link = servidor + title + "/";
+  const link = `${servidor}${title}/`;
 
   let categorias = ["Sub22", "Libre" , "Mixta" , "Femenil" , "Sub18"]
 
-  let Menu = [
-    { option: categorias[0] , link:link + categorias[0]},
-    { option: categorias[1] , link:link + categorias[1]},
-    { option: categorias[2] , link:link + categorias[2]},
-    { option: categorias[3] , link:link + categorias[3]},
-    { option: categorias[4] , link:link + categorias[4]},
-
-
-];
+  let Menu = categorias.map(categoria => {
+    return {
+      option: categoria,
+      link: link + categoria
+    };
+  });
 res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 
 });
@@ -85,17 +85,17 @@ res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugado
 
 router.get('/gemelas', function(req, res, next) {
   let title = "Gemelas"
-  let link = servidor + title + "/";
+  const link = `${servidor}${title}/`;
 
   let categorias = ["Sub-22", "Libre" , "Mixta" , "Femenil"]
 
-  let Menu = [
-    { option: categorias[0] , link:link + categorias[0]},
-    { option: categorias[1] , link:link + categorias[1]},
-    { option: categorias[2] , link:link + categorias[2]},
-    { option: categorias[3] , link:link + categorias[3]},
+  let Menu = categorias.map(categoria => {
+    return {
+      option: categoria,
+      link: link + categoria
+    };
+  });
 
-];
 
 res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 });

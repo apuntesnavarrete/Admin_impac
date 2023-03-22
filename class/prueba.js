@@ -5,7 +5,7 @@ const pool = require('../database');
 
 
 class MyClass {
-    constructor(servidor,title,liga, categoria ,color , jornada,Torneo_Abreviado) {
+    constructor(servidor,title,liga, categoria , jornada,Torneo_Abreviado) {
         this.servidor = servidor;
         this.title = title;
         this.liga = "Liga " + liga;
@@ -14,7 +14,38 @@ class MyClass {
         this.StyleSheet = "index.less"
         this.logo_liga = "logo" + title
         this.fondo = 'url("/images/fondo' + title + '.jpg")'
-        this.color = color
+        
+        switch (this.categoria) {
+          case "Libre":
+            this.color = "rgb(48 232 145)"
+            break;
+        
+          case "Femenil":
+            this.color = 'rgb(230 161 197)'
+            break;
+        
+          case "Mixta":
+              this.color = 'rgb(128 0 128)'
+              break;
+
+          case "Sub21":
+              this.color = 'rgb(255, 128, 0)'
+              break;
+
+          case "Sub22":
+                this.color = 'rgb(255, 128, 0)'
+                break;
+
+                case "Sub18":
+                  this.color = 'rgb(255 150 95)'
+                  break;
+          // Se pueden incluir todos los casos que quieras
+        
+          default:
+            this.color = "black"
+
+        }
+
         this.jornada = jornada
         this.StyleSheet_Resultados = "Resultados.less"
         this.Torneo_Abreviado = Torneo_Abreviado
@@ -246,8 +277,18 @@ class MyClass {
 
               console.log(equipo)
              const plantel = await pool.query(this.consulta_planteles_img_id , [equipo]);
-            
+             console.log(plantel)
+
               res.render('planteles-hoja',{plantel ,Liga:this.liga , categoria:this.categoria});
+            }
+
+            async planteles_imagenes_equipo_json(req,res){
+              let equipo = req.params.plantel
+              console.log(equipo)
+
+             const plantel = await pool.query(this.consulta_planteles_img);
+             console.log(plantel)
+             res.json(plantel);
             }
 
   }

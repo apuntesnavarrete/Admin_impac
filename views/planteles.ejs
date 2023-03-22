@@ -5,7 +5,7 @@
   
 <h2 class="menu_titulo">Resultados</h2>
 
-
+<h3 class="titulo_formulario"><%- Liga %>/<%- categoria %></h3>
 <form action="/<%- Liga %>/<%- categoria %>/Planteles" method="POST" class="form_resul">
    <select name="Equipo">
       <% for(var i=0 ; i < Planteles.length; i++) { %>
@@ -41,6 +41,9 @@
 
        <button>Enviar</button>
 
+      
+
     </form>
      </div>
+     <script src="/javascripts/jugadores-registrados.js" data-datos="<%- Liga %>/<%- categoria %>"></script>
 

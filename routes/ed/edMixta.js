@@ -5,7 +5,7 @@ const pool = require('../../database');
 
 const MyClass = require("../../class/prueba");
 const myClassInstance = new MyClass("http://localhost:8082/" , 
-"Ed" , "Ed" , "Mixta" ,'rgb(128, 0, 128)', "Jornada", "c22");
+"Ed" , "Ed" , "Mixta" , "Jornada", "c22");
 
 router.get('/',function(req,res,next){
   myClassInstance.principal(req,res)
@@ -53,6 +53,10 @@ router.get('/Planteles/Imagenes',function(req,res,next){
 
 router.get('/Planteles/Imagenes/:plantel',function(req,res,next){
   myClassInstance.planteles_imagenes_equipo(req,res)
+});
+
+router.get('/Planteles/Imagenes/:plantel/json',function(req,res,next){
+  myClassInstance.planteles_imagenes_equipo_json(req,res)
 });
 
 module.exports = router;

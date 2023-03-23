@@ -283,9 +283,7 @@ class MyClass {
             }
 
             async planteles_imagenes_equipo_json(req,res){
-              let equipo = req.params.plantel
-              console.log(equipo)
-
+              
              const plantel = await pool.query(this.consulta_planteles_img);
              console.log(plantel)
              res.json(plantel);

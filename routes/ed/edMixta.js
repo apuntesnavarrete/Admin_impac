@@ -55,7 +55,7 @@ router.get('/Planteles/Imagenes/:plantel',function(req,res,next){
   myClassInstance.planteles_imagenes_equipo(req,res)
 });
 
-router.get('/Planteles/Imagenes/:plantel/json',function(req,res,next){
+router.get('/Planteles/json',function(req,res,next){
   myClassInstance.planteles_imagenes_equipo_json(req,res)
 });
 

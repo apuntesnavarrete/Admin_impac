@@ -47,12 +47,20 @@ router.post('/Planteles',function(req,res,next){
   myClassInstance.Planteles_Post(req,res)
 });
 
+router.get('/Planteles/Delete/:id',function(req,res,next){
+  myClassInstance.Planteles_delete_id(req,res)
+});
+
 router.get('/Planteles/Imagenes',function(req,res,next){
   myClassInstance.Planteles_imagenes(req,res)
 });
 
 router.get('/Planteles/Imagenes/:plantel',function(req,res,next){
-  myClassInstance.consulta_planteles_img_id(req,res)
+  myClassInstance.planteles_imagenes_equipo(req,res)
+});
+
+router.get('/Planteles/json',function(req,res,next){
+  myClassInstance.planteles_imagenes_equipo_json(req,res)
 });
 
 module.exports = router;

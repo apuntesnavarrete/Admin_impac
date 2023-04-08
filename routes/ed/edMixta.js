@@ -47,6 +47,10 @@ router.post('/Planteles',function(req,res,next){
   myClassInstance.Planteles_Post(req,res)
 });
 
+router.get('/Planteles/Delete/:id',function(req,res,next){
+  myClassInstance.Planteles_delete_id(req,res)
+});
+
 router.get('/Planteles/Imagenes',function(req,res,next){
   myClassInstance.Planteles_imagenes(req,res)
 });

@@ -1,106 +1,138 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const pool = require('../database');
+const pool = require("../database");
+const ligas = require("../conf/ligas");
+const MyClass = require("../class/prueba");
 
+const servidor = ligas["Servidor"]
 
-let servidor = "http://localhost:8082/";
-let StyleSheet = "index.less"
-let Menu_jugadores = "Jugadores"
-let Menu_Equipos = "Equipos"
-let Menu_Sancionados = "Sancionados"
+//let StyleSheet = "index.less";
+let Menu_jugadores = "Jugadores";
+let Menu_Equipos = "Equipos";
+let Menu_Sancionados = "Sancionados";
 
+router.get("/", function (req, res, next) {
+  // Creamos un array de opciones vacío
+  let opciones = [];
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+  // Iteramos sobre las propiedades del objeto "ligas"
+  for (let liga in ligas["Ligas"]) {
+    // Agregamos una nueva opción al array de opciones
+    opciones.push({
+      option: liga,
+      link: `${servidor}${liga}`,
+    });
+  }
+  // Creamos el objeto "Menu" utilizando el array de opciones
+  let Menu = opciones;
 
+  console.log(Menu);
+  let title = "Principal";
+  let titulo_card = "Impacto";
 
-  let Menu = [
-    { option: 'ED', link:servidor + "ED"},
-    { option: 'Aguigol', link:servidor + "Aguigol"},
-    { option: 'Gemelas', link:servidor + "Gemelas"},
-    { option: 'Pro', link:servidor + "Pro"},
-];
- 
-
-  let title = "Principal"
-  let titulo_card = "Impacto"
-
-  res.render('home', { StyleSheet , title , titulo_card, Menu, Menu_jugadores , Menu_Equipos , Menu_Sancionados});
-});
-
-router.get('/ED', function(req, res, next) {
-  let title = "Ed"
-  const link = `${servidor}${title}/`;
-
-  let categorias = ["Libre", "Mixta" , "Femenil",  "Sub21"]
-
-  let Menu = categorias.map(categoria => {
-    return {
-      option: categoria,
-      link: link + categoria
-    };
+  res.render("home", {
+    StyleSheet:ligas["StyleSheet"],
+    title,
+    titulo_card,
+    Menu,
+    Menu_jugadores,
+    Menu_Equipos,
+    Menu_Sancionados,
   });
-
-  res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
 });
 
+/* Principal */
+
+router.get("/:liga", function (req, res, next) {
+  const n = Object.keys(ligas["Ligas"]).length;
+  console.log(Object.keys(ligas["Ligas"]))
+  for (let i = 0; i < n; i++) {
+    if (req.params.liga == Object.keys(ligas["Ligas"])[i]) {
+      // codigo a modificar
+      let title = Object.keys(ligas["Ligas"])[i];
+      let link = `${servidor}${title}/`;
+      let categorias = ligas["Ligas"][title]["categorias"];
+      console.log(categorias[0].name)
 
 
-router.get('/Aguigol', function(req, res, next) {
+      let Menu = categorias.map((categoria) => {
+        return {
+          option: categoria.name,
+          link: link + categoria.name,
+        };
+      });
 
-  let title = "Aguigol"
-  const link = `${servidor}${title}/`;
+      console.log(Menu)
 
-  let categorias = ["Sub22", "Libre" , "Mixta"]
-
-  let Menu = categorias.map(categoria => {
-    return {
-      option: categoria,
-      link: link + categoria
-    };
-  });
-
-console.log(Menu)
-
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
-
+      res.render("home", {
+        StyleSheet:ligas["StyleSheet"],
+        title,
+        titulo_card: title,
+        Menu,
+        Menu_jugadores,
+        Menu_Equipos,
+        Menu_Sancionados,
+      });
+      // codigo a modificar
+      return;
+    }
+  }
+  res.status(404).send("No se encontró la liga especificada");
 });
 
-router.get('/Pro', function(req, res, next) {
-  let title = "Pro"
-  const link = `${servidor}${title}/`;
+router.get("/:liga/:categoria", function (req, res, next) {
+  const n = Object.keys(ligas["Ligas"]).length;
 
-  let categorias = ["Sub22", "Libre" , "Mixta" , "Femenil" , "Sub18"]
+  for (let i = 0; i < n; i++) {
+    if (req.params.liga == Object.keys(ligas["Ligas"])[i]) {
+      // codigo a modificar
+      let title = Object.keys(ligas["Ligas"])[i];
+      const link = `${servidor}${title}/`;
+      let categorias = ligas["Ligas"][title]["categorias"];
 
-  let Menu = categorias.map(categoria => {
-    return {
-      option: categoria,
-      link: link + categoria
-    };
-  });
-res.render('home', { StyleSheet , title , titulo_card:title , Menu , Menu_jugadores,Menu_Equipos , Menu_Sancionados});
+      /*data need for mi class*/
+      let liga = req.params.liga;
+      let categoria = req.params.categoria;
+      const Torneo_Abreviado = "A22";
+      const jornada = "Jornada";
+      /*data need for mi class*/
 
+      const ligaCategoria = new MyClass(
+        servidor,
+        title,
+        liga,
+        categoria,
+        jornada,
+        Torneo_Abreviado
+      );
+
+      ligaCategoria.principal(req, res);
+      return;
+    }
+  }
+  res.status(404).send("No se encontró la liga especificada");
 });
 
+router.get("/:liga/:categoria/Resultados", function (req, res, next) {
 
-router.get('/gemelas', function(req, res, next) {
-  let title = "Gemelas"
-  const link = `${servidor}${title}/`;
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = "Pro";
+  const Torneo_Abreviado = "A22";
+  const jornada = "Jornada";
+  /*data need for mi class*/
 
-  let categorias = ["Sub-22", "Libre" , "Mixta" , "Femenil"]
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
 
-  let Menu = categorias.map(categoria => {
-    return {
-      option: categoria,
-      link: link + categoria
-    };
-  });
-
-
-res.render('home', { StyleSheet , title , titulo_card:title , Menu,Menu_jugadores,Menu_Equipos , Menu_Sancionados});
+  ligaResultado.Resultados(req, res);
 });
-
-
-
 
 module.exports = router;

@@ -15,7 +15,9 @@
         <div class="card_interna">
           <img src="<%- plantel[i].Foto %>" class="card_perfil"> </img>
           <div class="card_data">
+            <a href="Delete/<%- plantel[i].ID_FB %>" onclick="confirmarRedireccion(event)">
             <h5 class="card_plante-id">Id.-<%- plantel[i].ID_FB %></h5> 
+           </a>
                <h4 class="card_nombre"><%- plantel[i].Nombres %></h5>
                <h5 class="card_escudo"><img src="<%- plantel[i].Escudo %>" width="40px" height="40px" class="img-thumbnail"></img><%- plantel[i].Nombre_Equipo %></h5>
                <p class="card_Torneo">Torneo <%- categoria %> <%- plantel[i].Torneo %></p>
@@ -25,12 +27,18 @@
           </div>
 
         </div>
-    
-          
+       
+ 
      </div>
-              
+
   <% } %>
   
-  
+  <script>
+		function confirmarRedireccion(event) {
+			if (!confirm("¿Está seguro de que desea borrar")) {
+				event.preventDefault();
+			}
+		}
+	</script>
 </body>
 </html>

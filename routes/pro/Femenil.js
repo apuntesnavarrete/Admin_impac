@@ -5,7 +5,7 @@ const pool = require('../../database');
 
 const MyClass = require("../../class/prueba");
 const myClassInstance = new MyClass("http://localhost:8082/" , 
-"Pro" , "ProChampions" , "Femenil" ,'rgb(230 161 197)', "Jornada", "C22");
+"Pro" , "ProChampions" , "Femenil" , "Jornada", "C22");
 
 router.get('/',function(req,res,next){
   myClassInstance.principal(req,res)

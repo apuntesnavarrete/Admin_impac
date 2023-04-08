@@ -5,7 +5,11 @@ const pool = require('../database');
 
 
 class MyClass {
-    constructor(servidor,title,liga, categoria , jornada,Torneo_Abreviado) {
+    constructor( servidor,title,liga, categoria , jornada,Torneo_Abreviado ) {
+      
+      
+      
+      
         this.servidor = servidor;
         this.title = title;
         this.liga = "Liga " + liga;
@@ -25,7 +29,7 @@ class MyClass {
             break;
         
           case "Mixta":
-              this.color = 'rgb(128 0 128)'
+              this.color = 'rgb(177, 139, 202)'
               break;
 
           case "Sub21":
@@ -35,6 +39,10 @@ class MyClass {
           case "Sub22":
                 this.color = 'rgb(255, 128, 0)'
                 break;
+
+                case "Sub23":
+                  this.color = 'rgb(255, 128, 0)'
+                  break;
 
                 case "Sub18":
                   this.color = 'rgb(255 150 95)'
@@ -67,13 +75,16 @@ class MyClass {
         this.consulta_insert_resultado = "INSERT INTO " + this.title  + "_" + this.categoria + "_" + this.Torneo_Abreviado + " set ?"
         this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` ORDER BY ID DESC LIMIT 30";
         this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
+        this.consulta_planteles_delete_id = "DELETE FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
+
         this.consulta_planteles_vistas = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "`"
         this.consulta_planteles_insert_id = "INSERT INTO `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` set ?"
         this.consulta_planteles_img = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` ORDER BY `Equipo` DESC"
         this.consulta_planteles_img_id = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `Nombre_Equipo`=? ORDER BY `ID` ASC"
 
         this.redirec_resultados = this.servidor + this.title + "/"+ this.categoria + "/Resultados/Imagenes"
-        
+        this.redirec_planteles = this.servidor + this.title + "/"+ this.categoria + "/Planteles/Imagenes"
+
     }
  
     principal(req, res) {
@@ -270,6 +281,14 @@ class MyClass {
               const plantel = await pool.query(this.consulta_planteles_img);
   
              res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria});
+            }
+
+            async Planteles_delete_id(req,res,next){
+              let regis_delete = req.params.id;
+              console.log(regis_delete)
+              await pool.query(this.consulta_planteles_delete_id,[regis_delete])
+              res.redirect(this.redirec_planteles);
+
             }
 
             async planteles_imagenes_equipo(req,res){

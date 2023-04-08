@@ -5,7 +5,7 @@ const pool = require('../../database');
 
 const MyClass = require("../../class/prueba");
 const myClassInstance = new MyClass("http://localhost:8082/" , 
-"Ed" , "Ed" , "Femenil" ,'rgb(255, 105, 180)', "Jornada", "c22");
+"Ed" , "Ed" , "Femenil" , "Jornada", "c22");
 
 router.get('/',function(req,res,next){
   myClassInstance.principal(req,res)
@@ -47,14 +47,23 @@ router.post('/Planteles',function(req,res,next){
   myClassInstance.Planteles_Post(req,res)
 });
 
+router.get('/Planteles/Delete/:id',function(req,res,next){
+  myClassInstance.Planteles_delete_id(req,res)
+});
+
 router.get('/Planteles/Imagenes',function(req,res,next){
   myClassInstance.Planteles_imagenes(req,res)
 });
 
 router.get('/Planteles/Imagenes/:plantel',function(req,res,next){
-  myClassInstance.consulta_planteles_img_id(req,res)
+  myClassInstance.planteles_imagenes_equipo(req,res)
+});
+
+router.get('/Planteles/json',function(req,res,next){
+  myClassInstance.planteles_imagenes_equipo_json(req,res)
 });
 
 module.exports = router;
+
 
 

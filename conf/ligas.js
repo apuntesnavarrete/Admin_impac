@@ -13,6 +13,9 @@ const ligas = {
   
   const ligas_categorias = {
     StyleSheet: "index.less",
+    Menu_jugadores: "Jugadores",
+    Menu_Equipos: "Equipos",
+    Menu_Sancionados : "Sancionados",
     Servidor: "http://localhost:8082/",
     Ligas: {
       Ed: {
@@ -20,10 +23,10 @@ const ligas = {
         name: "Liga ED",
         jornada: "Jornada",
         categorias: [
-          { name: "Libre", torneos: ["A23", "A22"] },
-          { name: "Mixta", torneos: ["A23", "A22"] },
+          { name: "Libre", torneos: ["C22", "A22"] },
+          { name: "Mixta", torneos: ["C22", "A22"] },
           { name: "Sub21", torneos: ["A23", "A22"] },
-          { name: "Femenil", torneos: ["A23", "A22"] },
+          { name: "Femenil", torneos: ["C22", "A22"] },
         ],
       },
       Aguigol: {
@@ -31,10 +34,8 @@ const ligas = {
         name: "Aguigol",
         jornada: "Semana",
         categorias: [
-          { name: "Libre", torneos: ["A23", "A22"] },
-          { name: "Mixta", torneos: ["A23", "A22"] },
-          { name: "Sub21", torneos: ["A23", "A22"] },
-          { name: "Femenil", torneos: ["A23", "A22"] },
+          { name: "Libre", torneos: ["C22", "A22"] },
+          { name: "Sub23", torneos: ["A23", "A22"] },
         ],
       },
       Gemelas: {
@@ -44,8 +45,6 @@ const ligas = {
         categorias: [
           { name: "Libre", torneos: ["A23", "A22"] },
           { name: "Mixta", torneos: ["A23", "A22"] },
-          { name: "Sub21", torneos: ["A23", "A22"] },
-          { name: "Femenil", torneos: ["A23", "A22"] },
         ],
       },
       Pro: {
@@ -54,20 +53,11 @@ const ligas = {
         jornada: "Semana",
         categorias: [
           { name: "Libre", torneos: ["A23", "A22"] },
-          { name: "Mixta", torneos: ["A23", "A22"] },
-          { name: "Sub21", torneos: ["A23", "A22"] },
-          { name: "Femenil", torneos: ["A23", "A22"] },
-        ],
-      },
-      Spartaq: {
-        name_Key: "Spartaq",
-        name: "Spartaq",
-        jornada: "Semana",
-        categorias: [
-          { name: "Libre", torneos: ["A23", "A22"] },
-          { name: "Mixta", torneos: ["A23", "A22"] },
-          { name: "Sub21", torneos: ["A23", "A22"] },
-          { name: "Femenil", torneos: ["A23", "A22"] },
+          { name: "Mixta", torneos: ["C22", "A22"] },
+          { name: "Sub22", torneos: ["A23", "C22"] },
+          { name: "Femenil", torneos: ["C22", "A22"] },
+          { name: "Sub18", torneos: ["C22", "A22"] },
+
         ],
       },
     },

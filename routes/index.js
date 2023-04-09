@@ -6,27 +6,19 @@ const MyClass = require("../class/prueba");
 
 const servidor = ligas["Servidor"]
 
-//let StyleSheet = "index.less";
-let Menu_jugadores = "Jugadores";
-let Menu_Equipos = "Equipos";
-let Menu_Sancionados = "Sancionados";
 
 router.get("/", function (req, res, next) {
   // Creamos un array de opciones vacío
-  let opciones = [];
-
+  let Menu = [];
   // Iteramos sobre las propiedades del objeto "ligas"
   for (let liga in ligas["Ligas"]) {
     // Agregamos una nueva opción al array de opciones
-    opciones.push({
+    Menu.push({
       option: liga,
       link: `${servidor}${liga}`,
     });
   }
-  // Creamos el objeto "Menu" utilizando el array de opciones
-  let Menu = opciones;
 
-  console.log(Menu);
   let title = "Principal";
   let titulo_card = "Impacto";
 
@@ -35,9 +27,9 @@ router.get("/", function (req, res, next) {
     title,
     titulo_card,
     Menu,
-    Menu_jugadores,
-    Menu_Equipos,
-    Menu_Sancionados,
+    Menu_jugadores:ligas["Menu_jugadores"],
+    Menu_Equipos:ligas["Menu_Equipos"],
+    Menu_Sancionados:ligas["Menu_Sancionados"],
   });
 });
 
@@ -45,15 +37,12 @@ router.get("/", function (req, res, next) {
 
 router.get("/:liga", function (req, res, next) {
   const n = Object.keys(ligas["Ligas"]).length;
-  console.log(Object.keys(ligas["Ligas"]))
   for (let i = 0; i < n; i++) {
     if (req.params.liga == Object.keys(ligas["Ligas"])[i]) {
       // codigo a modificar
       let title = Object.keys(ligas["Ligas"])[i];
       let link = `${servidor}${title}/`;
       let categorias = ligas["Ligas"][title]["categorias"];
-      console.log(categorias[0].name)
-
 
       let Menu = categorias.map((categoria) => {
         return {
@@ -62,16 +51,14 @@ router.get("/:liga", function (req, res, next) {
         };
       });
 
-      console.log(Menu)
-
       res.render("home", {
         StyleSheet:ligas["StyleSheet"],
         title,
         titulo_card: title,
         Menu,
-        Menu_jugadores,
-        Menu_Equipos,
-        Menu_Sancionados,
+        Menu_jugadores:ligas["Menu_jugadores"],
+        Menu_Equipos:ligas["Menu_Equipos"],
+        Menu_Sancionados:ligas["Menu_Sancionados"],
       });
       // codigo a modificar
       return;
@@ -110,7 +97,7 @@ router.get("/:liga/:categoria", function (req, res, next) {
       return;
     }
   }
-  res.status(404).send("No se encontró la liga especificada");
+  res.status(404).send("No se encontró la Categoria especificada");
 });
 
 router.get("/:liga/:categoria/Resultados", function (req, res, next) {
@@ -118,10 +105,11 @@ router.get("/:liga/:categoria/Resultados", function (req, res, next) {
   /*data need for mi class*/
   let liga = req.params.liga;
   let categoria = req.params.categoria;
-  let title = "Pro";
-  const Torneo_Abreviado = "A22";
-  const jornada = "Jornada";
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
   /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
 
   const ligaResultado = new MyClass(
     servidor,
@@ -133,6 +121,306 @@ router.get("/:liga/:categoria/Resultados", function (req, res, next) {
   );
 
   ligaResultado.Resultados(req, res);
+});
+
+router.post("/:liga/:categoria/Resultados", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  ligaResultado.Resultados_post(req, res);
+});
+
+router.get("/:liga/:categoria/Resultados/Delete/:id", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  ligaResultado.Resultados_delete_id(req, res);
+});
+
+
+router.get("/:liga/:categoria/Planteles", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Planteles(req, res);
+});
+
+
+router.post("/:liga/:categoria/Planteles", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Planteles_Post(req, res);
+});
+
+router.post("/:liga/:categoria/Planteles/Json", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+/*
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+*/
+  console.log(ligaResultado)
+
+//  ligaResultado.planteles_imagenes_equipo_json(req, res);
+});
+
+
+
+router.get("/:liga/:categoria/Vistas", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Menu_secundario(req, res);
+});
+
+router.get("/:liga/:categoria/General", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.general(req, res);
+});
+
+router.get("/:liga/:categoria/Resultados/Imagenes", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Resultados_vista(req, res);
+});
+
+router.get("/:liga/:categoria/Planteles/Imagenes", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Planteles_imagenes(req, res);
+});
+
+router.get("/:liga/:categoria/Planteles/Imagenes/:plantel", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.planteles_imagenes_equipo(req, res);
+});
+
+router.get("/:liga/:categoria/Planteles/Imagenes/Json/:plantel", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.planteles_imagenes_equipo_json(req, res);
+});
+
+router.get("/:liga/:categoria/Planteles/Json/", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.planteles_imagenes_equipo_json(req, res);
 });
 
 module.exports = router;

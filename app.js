@@ -15,37 +15,6 @@ var Jugadores = require('./routes/jugadores/jugadores');
 var Equipos = require('./routes/Equipos/Equipos');
 
 
-// Rutas de ligas (llamarlas)//
-
-// Gemelas 
-let GemelasMixta = require('./routes/gemelas/Mixta');
-let GemelasLibre = require('./routes/gemelas/Libre');
-
-// Gemelas
-/*
-//Pro
-let ProLibre = require('./routes/pro/Libre');
-let ProSub22 = require('./routes/pro/Sub22');
-let ProMixta = require('./routes/pro/Mixta');
-let ProFemenil = require('./routes/pro/Femenil');
-let ProSub18 = require('./routes/pro/Sub18');
-*/
-//Pro
-
-//ED
-var EdLibre = require('./routes/ed/edLibre');
-var EdFemenil = require('./routes/ed/edfemenil');
-var EdMixta = require('./routes/ed/edMixta');
-var EdSub21 = require('./routes/ed/edsub21');
-
- //ED
-
- //Aguigol
-var AguigolLibre = require('./routes/aguigol/aguilibre');
-var AguigolSub23 = require('./routes/aguigol/aguisub22');
-
-  //Aguigol
-
 var app = express();
 
 // view engine setup
@@ -67,36 +36,7 @@ app.use('/Equipos', Equipos);
 
 app.use('/', indexRouter);
 
-//Gemelas
 
-app.use('/Gemelas/Mixta', GemelasMixta);
-app.use('/Gemelas/Libre', GemelasLibre);
-
-//Gemelas
-
-/*
-//Pro
-app.use('/Pro/Sub22', ProSub22);
-app.use('/Pro/Mixta', ProMixta);
-app.use('/Pro/Femenil', ProFemenil);
-app.use('/Pro/Sub18', ProSub18);
-app.use('/Pro/Libre', ProLibre);
-*/
-//Pro
-
- //ED
-app.use('/Ed/Libre', EdLibre);
-app.use('/Ed/Femenil', EdFemenil);
-app.use('/Ed/Mixta', EdMixta);
-app.use('/Ed/Sub21', EdSub21);
-
-  //ED
-
-  //Aguigol
-  app.use('/Aguigol/Libre', AguigolLibre);
-  app.use('/Aguigol/Sub23', AguigolSub23);
-
-  //Aguigol
 
 
 // catch 404 and forward to error handler

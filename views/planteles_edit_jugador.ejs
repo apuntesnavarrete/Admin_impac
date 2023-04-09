@@ -1,0 +1,45 @@
+
+
+<p> hola edita tu jugador</p>
+
+<div class="menu">
+
+  
+    <h2 class="menu_titulo">Resultados</h2>
+    
+    <h3 class="titulo_formulario"><%- plantel[0].ID %>/<%-  %></h3>
+    <form action="/<%- Liga %>/<%- categoria %>/Planteles/Edit/<%- plantel[0].ID %>" method="POST" class="form_resul">
+      
+        <label>ID</label>
+        <input type="number" name="ID" value="<%- plantel[0].ID %>" placeholder="<%-  %>">
+    
+        <div class="for_secc">
+            <label>Nombres</label>
+
+          <input type="text" name="Nombres" value="<%- plantel[0].Nombres %>" placeholder="" class="ID">
+         </div>
+    
+         <div class="for_secc">
+            <label>Equipo</label>
+
+          <input type="text" name="Nombre_Equipo" value="<%- plantel[0].Nombre_Equipo %>" placeholder="" class="ID">
+         </div>
+    
+         <div class="for_secc">
+            <label>Dorsal</label>
+
+          <input type="text" name="Dorsal" value="<%- plantel[0].Dorsal %>" placeholder="" class="ID">
+         </div>
+    
+         <div class="for_secc">
+            <label>Torneo</label>
+
+          <input type="text" name="Torneo" value="<%- plantel[0].Torneo %>" placeholder="" class="ID">
+         </div>
+           
+           <button>Enviar</button>
+    
+          
+    
+        </form>
+         </div>

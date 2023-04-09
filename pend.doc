@@ -1,2 +1,7 @@
 
--en la vista planteles de jugadores , poder modificar numeros.
+1)en la vista planteles de jugadores , poder modificar numeros.
+1.1- boton a enlace editar (al direccionar enviar datos de edicion)
+1.2 crear ruta edicion  (se recibe en un formulario) 
+1.3 al reenviar en post introducir la consulta de edicion
+
+-)trabajar en la insercion del goleo

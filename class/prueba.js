@@ -81,6 +81,9 @@ class MyClass {
         this.consulta_planteles_insert_id = "INSERT INTO `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` set ?"
         this.consulta_planteles_img = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` ORDER BY `Equipo` DESC"
         this.consulta_planteles_img_id = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `Nombre_Equipo`=? ORDER BY `ID` ASC"
+        this.consulta_planteles_jugador_id = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `ID`=? ORDER BY `ID` ASC"
+        this.consulta_planteles_jugador_id_edit = "UPDATE `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` SET `Dorsal`=? ,`Torneo`=?  WHERE  `ID_INGRESO`=?;"
+
 
         this.redirec_resultados = this.servidor + this.title + "/"+ this.categoria + "/Resultados/Imagenes"
         this.redirec_planteles = this.servidor + this.title + "/"+ this.categoria + "/Planteles/Imagenes"
@@ -308,6 +311,23 @@ class MyClass {
              res.json(plantel);
             }
 
+            async planteles_edit_jugador_id(req,res){
+              let jugador = req.params.jugador;
+              console.log(jugador)
+              const plantel = await pool.query(this.consulta_planteles_jugador_id , [jugador]);
+              console.log(plantel)
+             res.render('planteles_edit_jugador',{plantel,Liga:this.title , categoria:this.categoria});
+            }
+
+            async planteles_edit_jugador_id_post(req,res){
+              let {ID,Dorsal,Torneo} = req.body;
+              console.log(ID)
+              console.log(Dorsal)
+              console.log(Torneo)
+
+             await pool.query(this.consulta_planteles_jugador_id_edit,[Dorsal,Torneo,ID])
+             res.send("aqui adata")
+            }
   }
   
   module.exports = MyClass;

@@ -9,6 +9,7 @@
 <form action="/<%= Liga %>/<%= categoria %>/Resultados/Partido/<%= partido %>" method="POST" class="form_resul for_secc">
    
     <p>Equipo local <%= plantel_equipo_local[0].Nombre_Equipo %></p>
+    <input type="text" name="equipolocal" value="<%= plantel_equipo_local[0].Nombre_Equipo %>" placeholder="<%= plantel_equipo_local[0].Nombre_Equipo %>" >
 
     <% for(var i=0 ; i < plantel_equipo_local.length; i++) { %>
 
@@ -16,16 +17,17 @@
 
      
 
-      <input type="number" name="Id" value="<%= plantel_equipo_local[i].ID %>" placeholder="plantel_equipo_local[i].ID %>" >
+      <input type="number" name="Id" value="<%= plantel_equipo_local[i].ID %>" placeholder="<%= plantel_equipo_local[i].ID %>" >
       <input type="text" name="" value="<%= plantel_equipo_local[i].Nombres %>" placeholder="<%= plantel_equipo_local[i].Nombres %>" >
       <input type="number" name="numero" value="<%= plantel_equipo_local[i].Dorsal %>" placeholder="<%= plantel_equipo_local[i].Dorsal %>" >
       <input type="number" name="goles" value="0" placeholder="goles" >
-      <input type="checkbox" name="miCheckbox" value="" placeholder="checkbox" >
+      <input type="number" name="asistencia" value="0" placeholder="asistencia" min="0" max="1">
 
      </div>
      <% } %>
 
      <p>Equipo Visitante <%= plantel_equipo_Visitante[0].Nombre_Equipo %></p>
+     <input type="text" name="equipovisitante" value="<%= plantel_equipo_Visitante[0].Nombre_Equipo %>" placeholder="<%= plantel_equipo_Visitante[0].Nombre_Equipo %>" >
 
      <% for(var i=0 ; i < plantel_equipo_Visitante.length; i++) { %>
 
@@ -33,11 +35,11 @@
     
          
     
-          <input type="number" name="Id" value="<%= plantel_equipo_Visitante[i].ID %>" placeholder="plantel_equipo_Visitante[i].ID %>" >
+          <input type="number" name="Id_v" value="<%= plantel_equipo_Visitante[i].ID %>" placeholder="plantel_equipo_Visitante[i].ID %>" >
           <input type="text" name="" value="<%= plantel_equipo_Visitante[i].Nombres %>" placeholder="<%= plantel_equipo_Visitante[i].Nombres %>" >
-          <input type="number" name="numero" value="<%= plantel_equipo_Visitante[i].Dorsal %>" placeholder="<%= plantel_equipo_Visitante[i].Dorsal %>" >
-          <input type="number" name="goles" value="0" placeholder="goles" >
-          <input type="checkbox" name="miCheckbox" value="" placeholder="checkbox" >
+          <input type="number" name="numero_v" value="<%= plantel_equipo_Visitante[i].Dorsal %>" placeholder="<%= plantel_equipo_Visitante[i].Dorsal %>" >
+          <input type="number" name="goles_v" value="0" placeholder="goles" >
+          <input type="number" name="asistencia_v" value="0" placeholder="asistencia" min="0" max="1">
     
          </div>
          <% } %>

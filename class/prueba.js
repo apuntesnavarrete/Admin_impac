@@ -167,17 +167,22 @@ class MyClass {
               console.log(plantel_equipo_Visitante)
               res.render('goles_i',{StyleSheet:this.StyleSheet_Resultados , Liga:this.title , title:this.title, categoria:this.categoria, plantel_equipo_Visitante,plantel_equipo_local, partido});
           }
-/*
+
             async partidos_post(req, res, next) {
-              let partido = req.body;
+              let {Id , numero , goles , asistencia , Id_v , numero_v , goles_v, asistencia_v , equipolocal , equipovisitante} = req.body;
 
-               
+              let jugadores = [];
+              for (let i = 0; i < Id.length; i++) {
+                jugadores.push([equipolocal, Id[i], numero[i], goles[i], asistencia[i]]);
+                jugadores.push([equipovisitante, Id_v[i], numero_v[i], goles_v[i], asistencia_v[i]]);
 
-            console.log(partido)
-            res.send(partido);
+              }
+
+         //   console.log(partido)
+            res.send(jugadores[0]);
           }
 
-*/
+
 
               async Resultados_delete_id(req,res,next){
                 let regis_delete = req.params.id;

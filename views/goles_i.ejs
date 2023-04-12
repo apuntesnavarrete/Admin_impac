@@ -1,0 +1,66 @@
+<%- include('globales/cabecera.ejs') %>
+
+<div class="menu">
+
+  
+<h2 class="menu_titulo">Resultados</h2>
+
+
+<form action="/<%= Liga %>/<%= categoria %>/Resultados/Partido/<%= partido %>" method="POST" class="form_resul for_secc">
+   
+    <p>Equipo local <%= plantel_equipo_local[0].Nombre_Equipo %></p>
+
+    <% for(var i=0 ; i < plantel_equipo_local.length; i++) { %>
+
+    <div class="">
+
+     
+
+      <input type="number" name="Id" value="<%= plantel_equipo_local[i].ID %>" placeholder="plantel_equipo_local[i].ID %>" >
+      <input type="text" name="" value="<%= plantel_equipo_local[i].Nombres %>" placeholder="<%= plantel_equipo_local[i].Nombres %>" >
+      <input type="number" name="numero" value="<%= plantel_equipo_local[i].Dorsal %>" placeholder="<%= plantel_equipo_local[i].Dorsal %>" >
+      <input type="number" name="goles" value="0" placeholder="goles" >
+      <input type="checkbox" name="miCheckbox" value="" placeholder="checkbox" >
+
+     </div>
+     <% } %>
+
+     <p>Equipo Visitante <%= plantel_equipo_Visitante[0].Nombre_Equipo %></p>
+
+     <% for(var i=0 ; i < plantel_equipo_Visitante.length; i++) { %>
+
+        <div class="">
+    
+         
+    
+          <input type="number" name="Id" value="<%= plantel_equipo_Visitante[i].ID %>" placeholder="plantel_equipo_Visitante[i].ID %>" >
+          <input type="text" name="" value="<%= plantel_equipo_Visitante[i].Nombres %>" placeholder="<%= plantel_equipo_Visitante[i].Nombres %>" >
+          <input type="number" name="numero" value="<%= plantel_equipo_Visitante[i].Dorsal %>" placeholder="<%= plantel_equipo_Visitante[i].Dorsal %>" >
+          <input type="number" name="goles" value="0" placeholder="goles" >
+          <input type="checkbox" name="miCheckbox" value="" placeholder="checkbox" >
+    
+         </div>
+         <% } %>
+
+     
+
+
+   
+       
+
+   
+       <button>Enviar</button>
+       </form>
+
+
+
+<!-- <P> VENTANA QUE ME PREGUNTE SI DESEO AGREGAR GOLES Y ASISTENCIA </P>
+       <P> if : redirigir a goles y asistencias pasando los equipos por varibles.</P>
+       <P> not : redirigir a imagen del resultado</P> -->
+
+       
+
+      </div>
+
+     
+<script src="/javascripts/prueba.js"></script>

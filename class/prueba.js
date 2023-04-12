@@ -73,6 +73,9 @@ class MyClass {
         this.consulta_vista_jornadas = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "`";
         this.consulta_vista_jornadas_conteo = "SELECT Jornada FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` GROUP BY Jornada";
         this.consulta_insert_resultado = "INSERT INTO " + this.title  + "_" + this.categoria + "_" + this.Torneo_Abreviado + " set ?"
+     
+        this.consulta_jornadas_partido = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` Where `ID`=?";
+
         this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` ORDER BY ID DESC LIMIT 30";
         this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
         this.consulta_planteles_delete_id = "DELETE FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
@@ -147,6 +150,34 @@ class MyClass {
             console.log(resul)
             res.render('Resultados-img', {resul,categoria:this.categoria,Liga:this.liga,logo_liga:this.logo_liga,fondo:this.fondo,color:this.color,jornada:this.jornada});
               }
+
+              async partidos_i(req, res, next) {
+                let partido = req.params.partido;
+
+                  console.log(this.consulta_jornadas_partido)
+               const resul = await pool.query(this.consulta_jornadas_partido,[partido]);
+              const equipo_local = resul[0].Nombre_Equipo
+              const equipo_Visitante = resul[0].Equipolc
+
+ 
+              const plantel_equipo_local = await pool.query(this.consulta_planteles_img_id,[equipo_local]);
+              const plantel_equipo_Visitante = await pool.query(this.consulta_planteles_img_id,[equipo_Visitante]);
+
+
+              console.log(plantel_equipo_Visitante)
+              res.render('goles_i',{StyleSheet:this.StyleSheet_Resultados , Liga:this.title , title:this.title, categoria:this.categoria, plantel_equipo_Visitante,plantel_equipo_local, partido});
+          }
+/*
+            async partidos_post(req, res, next) {
+              let partido = req.body;
+
+               
+
+            console.log(partido)
+            res.send(partido);
+          }
+
+*/
 
               async Resultados_delete_id(req,res,next){
                 let regis_delete = req.params.id;

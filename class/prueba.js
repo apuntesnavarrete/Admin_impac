@@ -75,6 +75,7 @@ class MyClass {
         this.consulta_insert_resultado = "INSERT INTO " + this.title  + "_" + this.categoria + "_" + this.Torneo_Abreviado + " set ?"
      
         this.consulta_jornadas_partido = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` Where `ID`=?";
+        this.consulta_jornada_goles = "INSERT INTO " + this.title  + "_" + this.categoria + "_" + this.Torneo_Abreviado + "_goles set ?"
 
         this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` ORDER BY ID DESC LIMIT 30";
         this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
@@ -157,6 +158,7 @@ class MyClass {
                   console.log(this.consulta_jornadas_partido)
                const resul = await pool.query(this.consulta_jornadas_partido,[partido]);
               const equipo_local = resul[0].Nombre_Equipo
+
               const equipo_Visitante = resul[0].Equipolc
 
  
@@ -164,22 +166,53 @@ class MyClass {
               const plantel_equipo_Visitante = await pool.query(this.consulta_planteles_img_id,[equipo_Visitante]);
 
 
-              console.log(plantel_equipo_Visitante)
+              console.log(plantel_equipo_local)
               res.render('goles_i',{StyleSheet:this.StyleSheet_Resultados , Liga:this.title , title:this.title, categoria:this.categoria, plantel_equipo_Visitante,plantel_equipo_local, partido});
           }
 
             async partidos_post(req, res, next) {
-              let {Id , numero , goles , asistencia , Id_v , numero_v , goles_v, asistencia_v , equipolocal , equipovisitante} = req.body;
+              let {Id  , goles , asistencia , Id_v  , goles_v, asistencia_v , equipolocal , equipovisitante ,Id_Partido} = req.body;
+
+              let jugador = {
+                Id_Partido,
+                Equipo: "",
+                id: "",
+                Goles: "",
+                Asistencia: ""
+              };
 
               let jugadores = [];
+              
               for (let i = 0; i < Id.length; i++) {
-                jugadores.push([equipolocal, Id[i], numero[i], goles[i], asistencia[i]]);
-                jugadores.push([equipovisitante, Id_v[i], numero_v[i], goles_v[i], asistencia_v[i]]);
+                let jugadorLocal = Object.create(jugador);
+
+                jugadorLocal.Equipo = equipolocal;
+                jugadorLocal.id = Id[i];
+                jugadorLocal.Goles = goles[i];
+                jugadorLocal.Asistencia = asistencia[i];
+                jugadorLocal.Id_Partido = Id_Partido;
+
+                jugadores.push(jugadorLocal);
+              
+                let jugadorVisitante = Object.create(jugador);
+                jugadorVisitante.Equipo = equipovisitante;
+                jugadorVisitante.id = Id_v[i];
+                jugadorVisitante.Goles = goles_v[i];
+                jugadorVisitante.Asistencia = asistencia_v[i];
+                jugadorVisitante.Id_Partido = Id_Partido;
+
+                jugadores.push(jugadorVisitante);
+              }
+              console.log(jugadores.length)
+
+              for (let i = 0; i < jugadores.length; i++) {
+
+              await pool.query(this.consulta_jornada_goles,[jugadores[i]])
 
               }
 
          //   console.log(partido)
-            res.send(jugadores[0]);
+            res.send(jugadores);
           }
 
 

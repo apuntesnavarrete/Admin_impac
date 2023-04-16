@@ -182,7 +182,8 @@ class MyClass {
               };
 
               let jugadores = [];
-              
+              let longitud_jugadores = Id.length + Id_v.length
+
               for (let i = 0; i < Id.length; i++) {
                 let jugadorLocal = Object.create(jugador);
 
@@ -194,6 +195,12 @@ class MyClass {
 
                 jugadores.push(jugadorLocal);
               
+                
+              }
+
+              for (let i = 0; i < Id_v.length; i++) {
+                let jugadorLocal = Object.create(jugador);
+
                 let jugadorVisitante = Object.create(jugador);
                 jugadorVisitante.Equipo = equipovisitante;
                 jugadorVisitante.id = Id_v[i];
@@ -202,8 +209,13 @@ class MyClass {
                 jugadorVisitante.Id_Partido = Id_Partido;
 
                 jugadores.push(jugadorVisitante);
+              
+                
               }
-              console.log(jugadores.length)
+             
+
+
+              console.log(jugadores)
 
               for (let i = 0; i < jugadores.length; i++) {
 

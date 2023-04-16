@@ -108,7 +108,6 @@ router.get("/:liga/:categoria/Resultados", function (req, res, next) {
   let title = req.params.liga;;
   const jornada = ligas["Ligas"][title]["jornada"];
   /*data need for mi class*/
-
  let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
 
   const ligaResultado = new MyClass(
@@ -403,6 +402,32 @@ router.get("/:liga/:categoria/Planteles/Imagenes", function (req, res, next) {
   ligaResultado.Planteles_imagenes(req, res);
 });
 
+router.get("/:liga/:categoria/Planteles/Imagenes/:plantel", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+  console.log(jornada)
+  console.log(req.params.categoria)
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+
+  ligaResultado.planteles_imagenes_equipo(req, res);
+});
+
 router.get("/:liga/:categoria/Planteles/Edit/:jugador", function (req, res, next) {
 
   /*data need for mi class*/
@@ -462,30 +487,7 @@ router.post("/:liga/:categoria/Planteles/Edit/:jugador", function (req, res, nex
 
 });
 
-router.get("/:liga/:categoria/Planteles/Imagenes/:plantel", function (req, res, next) {
 
-  /*data need for mi class*/
-  let liga = req.params.liga;
-  let categoria = req.params.categoria;
-  let title = req.params.liga;;
-  const jornada = ligas["Ligas"][title]["jornada"];
-  /*data need for mi class*/
-
- let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
-
-  const ligaResultado = new MyClass(
-    servidor,
-    title,
-    liga,
-    categoria,
-    jornada,
-    Torneo_Abreviado
-  );
-
-  console.log(ligaResultado)
-
-  ligaResultado.planteles_imagenes_equipo(req, res);
-});
 
 router.get("/:liga/:categoria/Planteles/Imagenes/Json/:plantel", function (req, res, next) {
 

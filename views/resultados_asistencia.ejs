@@ -6,46 +6,51 @@
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel='stylesheet' href='/stylesheets/Resultados-img.css' />
+    <link rel='stylesheet' href='/stylesheets/Resultados_asistencia.css' />
     
 
     <title>Document</title>
 </head>
 <body>
     
-    <% for(var i=0 ; i < resul.length; i++) { %>
-
+<p>Resultados_asistencia</p>
     <div class="content_resul">
-        <p class="fecha"><%- resul[i].Fecha %></p>
+        <p class="fecha"><%- resul.Fecha %></p>
         
         <p class="Cat">Categoria <%- categoria %></p>
-        <p class="Jor">    <%- jornada %> <%- resul[i].Jornada %></p>
+        <p class="Jor">    <%- jornada %> <%- resul.Jornada %></p>
         <div class="equipo_1">
-            <img class="equipos" src="<%- resul[i].Escudolc %>" alt="">
+            <img class="equipos" src="<%- resul.Escudolc %>" alt="">
         </div> 
         <p class="versus"></p>
         <div class="Equipo_2">
-            <img class="equipos" src="<%- resul[i].Escudo %>" alt="">
+            <img class="equipos" src="<%- resul.Escudo %>" alt="">
         </div>       
-        <p class="marcador"><%- resul[i].GF %> - <%- resul[i].GC %></p>
+        <p class="marcador"><%- resul.GF %> - <%- resul.GC %></p>
         <p class="Logo">
             <img class="logo-img" src="/images/<%- logo_liga %>.png" alt="">
         </p>
         <p class="liga"><%- Liga %></p>
+        <p class="titulo_2">Toma de Asistencia y Goles</p>
+
+        <div class="Equipo_local">
+            <% for (let i = 0; i < jugadores_locales.length; i++) { %>
+                <P class="jugadores_css">   <%-  jugadores_locales[i].Nombres  %> &#160; <span class="span"><%- jugadores_locales[i].Goles %></span> </P>
+              <% } %> 
+                   </div>
+
+        <div class="Equipo_visita">
+            <% for (let i = 0; i < jugadores_visitantes.length; i++) { %>
+                <P class="jugadores_css"> <span class="span">  <%- jugadores_visitantes[i].Goles %></span> &#160; <%- jugadores_visitantes[i].Nombres %> </P>
+              <% } %> 
+        </div>
     </div>
-
-        <p>Puntos local:<%- resul[i].Puntos %> </p>
-
-        <a href="Delete/<%- resul[i].ID %>"> Delete  <%- resul[i].ID %></a>
-
-        <a href="Edit/<%- resul[i].ID %>"> Editar  <%- resul[i].ID %></a>
-
     
 
-    <a href="Partido/<%- resul[i].ID %>"> Estadisticas Individuales  <%- resul[i].ID %></a>
 
-    <a href="Asistencia/<%- resul[i].ID %>"> Partido con Asistencia  <%- resul[i].ID %></a>
-    <% } %>
+        <p>Puntos local:<%- resul.Puntos %> </p>
+
+
     <%- fondo %>
 
 <script>
@@ -76,5 +81,7 @@
   
 
 <script src="/javascripts/descargar-img.js"></script>
+<script src="/javascripts/goles_display.js"></script>
+
 </body>
 </html>

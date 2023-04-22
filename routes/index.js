@@ -220,6 +220,34 @@ router.post("/:liga/:categoria/Planteles", function (req, res, next) {
   ligaResultado.Planteles_Post(req, res);
 });
 
+
+router.get("/:liga/:categoria/Planteles/Delete/:id", function (req, res, next) {
+  console.log(req.params.liga)
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Planteles_delete_id(req, res);
+});
+
+
 router.post("/:liga/:categoria/Planteles/Json", function (req, res, next) {
 
   /*data need for mi class*/
@@ -322,6 +350,33 @@ router.get("/:liga/:categoria/Resultados/Imagenes", function (req, res, next) {
   ligaResultado.Resultados_vista(req, res);
 });
 
+router.get("/:liga/:categoria/Resultados/Asistencia/:partido", function (req, res, next) {
+
+  /*data need for mi class*/
+  let liga = req.params.liga;
+  let categoria = req.params.categoria;
+  let title = req.params.liga;;
+  const jornada = ligas["Ligas"][title]["jornada"];
+  /*data need for mi class*/
+
+ let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
+
+  const ligaResultado = new MyClass(
+    servidor,
+    title,
+    liga,
+    categoria,
+    jornada,
+    Torneo_Abreviado
+  );
+
+  console.log(ligaResultado)
+
+  ligaResultado.Resultados_asistencia(req, res);
+});
+
+
+
 router.get("/:liga/:categoria/Resultados/Partido/:partido", function (req, res, next) {
 
   /*data need for mi class*/
@@ -357,7 +412,7 @@ router.post("/:liga/:categoria/Resultados/Partido/:partido", function (req, res,
   let categoria = req.params.categoria;
 
   let title = req.params.liga;;
-  const jornada = ligas["Ligas"][title]["jornada"];
+  let jornada = ligas["Ligas"][title]["jornada"];
   /*data need for mi class*/
 
  let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
@@ -383,7 +438,7 @@ router.get("/:liga/:categoria/Planteles/Imagenes", function (req, res, next) {
   let liga = req.params.liga;
   let categoria = req.params.categoria;
   let title = req.params.liga;;
-  const jornada = ligas["Ligas"][title]["jornada"];
+  let jornada = ligas["Ligas"][title]["jornada"];
   /*data need for mi class*/
 
  let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
@@ -408,7 +463,7 @@ router.get("/:liga/:categoria/Planteles/Imagenes/:plantel", function (req, res, 
   let liga = req.params.liga;
   let categoria = req.params.categoria;
   let title = req.params.liga;;
-  const jornada = ligas["Ligas"][title]["jornada"];
+  let jornada = ligas["Ligas"][title]["jornada"];
   /*data need for mi class*/
   console.log(jornada)
   console.log(req.params.categoria)

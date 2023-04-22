@@ -25,7 +25,6 @@ const ligas = {
         categorias: [
           { name: "Libre", torneos: ["C22", "A22"] },
           { name: "Mixta", torneos: ["C22", "A22"] },
-          { name: "mixta", torneos: ["C22", "A22"] },
 
           { name: "Sub21", torneos: ["A23", "A22"] },
           { name: "Femenil", torneos: ["C22", "A22"] },

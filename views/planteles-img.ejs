@@ -19,8 +19,18 @@
             <h5 class="card_plante-id">Id.-<%- plantel[i].ID_FB %></h5> 
            </a>
                <h4 class="card_nombre"><%- plantel[i].Nombres %></h5>
-               <h5 class="card_escudo"><img src="<%- plantel[i].Escudo %>" width="40px" height="40px" class="img-thumbnail"></img><%- plantel[i].Nombre_Equipo %></h5>
-               <p class="card_Torneo">Torneo <%- categoria %> <%- plantel[i].Torneo %></p>
+              
+                <h5 class="card_escudo">
+                <img src="<%- plantel[i].Escudo %>" width="40px" height="40px" class="img-thumbnail"></img>
+                <a href="/<%- title %>/<%- categoria %>/Planteles/Imagenes/<%- plantel[i].Nombre_Equipo %>">
+
+                <%- plantel[i].Nombre_Equipo %>
+            
+              </a>
+
+              </h5>
+              
+              <p class="card_Torneo">Torneo <%- categoria %> <%- plantel[i].Torneo %></p>
                <a href="Edit/<%- plantel[i].ID_FB %>">
                <p class="card_Dorsal">Dorsal .- <%- plantel[i].Dorsal %></p>
               </a>

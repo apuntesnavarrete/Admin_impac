@@ -77,6 +77,8 @@ class MyClass {
         this.consulta_jornadas_partido = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` Where `ID`=?";
         this.consulta_jornada_goles = "INSERT INTO " + this.title  + "_" + this.categoria + "_" + this.Torneo_Abreviado + "_goles set ?"
 
+        this.consulta_jornadas_goles_partido = "SELECT * FROM `" + this.title + "_" + this.categoria + "_" + this.Torneo_Abreviado +  "_goles_v` Where `ID_partido`=?";
+
         this.consulta_jornadas_img = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "` ORDER BY ID DESC LIMIT 30";
         this.consulta_jornadas_delete_id = "DELETE FROM `" + this.title + "_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
         this.consulta_planteles_delete_id = "DELETE FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` WHERE `ID`= ?;";
@@ -85,6 +87,8 @@ class MyClass {
         this.consulta_planteles_insert_id = "INSERT INTO `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` set ?"
         this.consulta_planteles_img = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` ORDER BY `Equipo` DESC"
         this.consulta_planteles_img_id = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `Nombre_Equipo`=? ORDER BY `ID` ASC"
+        this.consulta_planteles_img_id_number = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `id_plantel`=? ORDER BY `ID` ASC"
+
         this.consulta_planteles_jugador_id = "SELECT * FROM `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "_v` WHERE `ID`=? ORDER BY `ID` ASC"
         this.consulta_planteles_jugador_id_edit = "UPDATE `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` SET `Dorsal`=? ,`Torneo`=?  WHERE  `ID_INGRESO`=?;"
 
@@ -152,6 +156,32 @@ class MyClass {
             res.render('Resultados-img', {resul,categoria:this.categoria,Liga:this.liga,logo_liga:this.logo_liga,fondo:this.fondo,color:this.color,jornada:this.jornada});
               }
 
+
+              async Resultados_asistencia(req, res, next) {
+                let partido = req.params.partido
+                const resul = await pool.query(this.consulta_jornadas_partido,[partido]);
+               // consulta de resultados
+               const partido_asistencias = await pool.query(this.consulta_jornadas_goles_partido,[partido]);
+
+
+               const jugadores_locales = partido_asistencias.filter(item => {
+                return item.Asistencia === 1 && item.Equipo === resul[0].Equipo;
+              });
+              
+              const jugadores_visitantes = partido_asistencias.filter(item => {
+                return item.Asistencia === 1 && item.Equipo === resul[0].Rival;
+              });
+
+
+
+
+
+               console.log(resul[0].Equipo)
+
+                res.render('resultados_asistencia', {resul:resul[0],categoria:this.categoria,Liga:this.liga,logo_liga:this.logo_liga,fondo:this.fondo,color:this.color,jornada:this.jornada,jugadores_locales,jugadores_visitantes});
+                  }
+
+
               async partidos_i(req, res, next) {
                 let partido = req.params.partido;
 
@@ -199,7 +229,6 @@ class MyClass {
               }
 
               for (let i = 0; i < Id_v.length; i++) {
-                let jugadorLocal = Object.create(jugador);
 
                 let jugadorVisitante = Object.create(jugador);
                 jugadorVisitante.Equipo = equipovisitante;
@@ -336,9 +365,7 @@ class MyClass {
             async Planteles_Post(req,res){
               let {Equipo , Torneo , ID , Dorsal} = req.body;
 
-              console.log(Equipo)
-              console.log(ID)
-              const Planteles = await pool.query(this.consulta_planteles_vistas);
+         //     const Planteles = await pool.query(this.consulta_planteles_vistas);
               let Resultados = []
             
               for (let i = 0; i < 5; i++) {
@@ -356,15 +383,15 @@ class MyClass {
             
                 }  
               }
-            
-            
-            res.render('Planteles' ,{Liga:this.title , categoria:this.categoria ,title:this.title,StyleSheet:this.StyleSheet,Planteles,Torneo_Abreviado:this.Torneo_Abreviado});
-            }
+            console.log(this.redirec_planteles + "/" + Equipo)
+            //redireccionar
+            res.redirect(this.redirec_planteles);
+          }
 
             async Planteles_imagenes(req,res){
               const plantel = await pool.query(this.consulta_planteles_img);
   
-             res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria});
+             res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria , title:this.title});
             }
 
             async Planteles_delete_id(req,res,next){
@@ -379,7 +406,17 @@ class MyClass {
               let equipo = req.params.plantel
 
               console.log(equipo)
-             const plantel = await pool.query(this.consulta_planteles_img_id , [equipo]);
+
+              console.log(typeof equipo)
+
+              // definir si el tipo el numero o varchar
+              // hacer un condicional
+             let plantel = await pool.query(this.consulta_planteles_img_id , [equipo]);
+
+             if (plantel == "")
+             {
+               plantel = await pool.query(this.consulta_planteles_img_id_number , [equipo]);
+            }
              console.log(plantel)
 
               res.render('planteles-hoja',{plantel ,Liga:this.liga , categoria:this.categoria});

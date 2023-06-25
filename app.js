@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var lessMiddleware = require('less-middleware');
 const session = require('express-session');
+require('dotenv').config();
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -20,23 +21,32 @@ let nuevas_table = require('./routes/new/new');
 
 // Configuración de Passport.js
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    if (username === process.env.DB_USERNAME && password === process.env.DB_PASSWORD) {
-      return done(null, { id: 1, username: username });
+  (username, password, done) => {
+    // Verificar las credenciales del usuario
+    if (username === process.env.VARIABLE1 && password === process.env.VARIABLE2) {
+      return done(null, { username: username });
     } else {
-      return done(null, false);
+      return done(null, false, { message: 'Credenciales inválidas' });
     }
   }
 ));
 
 
+passport.serializeUser((user, done) => {
+  done(null, user.username);
+});
 
+passport.deserializeUser((username, done) => {
+  // Obtener el usuario a partir del nombre de usuario
+  const user = { username: username };
+  done(null, user);
+});
 
 
 var app = express();
 
 app.use(session({
-  secret: 'secreto',
+  secret: process.env.USERNAME,
   resave: false,
   saveUninitialized: false
 }));
@@ -55,48 +65,55 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configuración de la estrategia local
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    if (username === process.env.DB_USERNAME && password === process.env.DB_PASSWORD) {
-      return done(null, { id: 1, username: username });
-    } else {
-      return done(null, false);
-    }
-  }
-));
 
-// Serialización y deserialización del usuario
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
+app.get('/login', (req, res) => {
+  res.send(`
+    <form action="/login" method="POST">
+      <input type="text" name="username" placeholder="Nombre de usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+  `);
 });
 
-passport.deserializeUser(function(id, done) {
-  // Aquí deberías obtener los datos del usuario a partir de su ID almacenado en tu base de datos
-  const user = { id: 1, username: process.env.DB_USERNAME };
-  done(null, user);
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
+
+app.get('/profile', isAuthenticated, (req, res) => {
+  res.send(`Bienvenido, ${req.user.username}!`);
 });
 
+app.get('/general', isAuthenticated, (req, res) => {
+    res.send(`Bienvenido a general, ${req.user.username}!`);
+  });
 
-app.use('/new', nuevas_table);
+
+app.use('/new',isAuthenticated, nuevas_table);
 
 //Ruta jugadores y equipos//
-app.use('/Jugadores', Jugadores);
-app.use('/Equipos', Equipos);
+app.use('/Jugadores',isAuthenticated, Jugadores);
+app.use('/Equipos',isAuthenticated, Equipos);
 
 // Rutas de ligas (EJECUTARLAS) //
 
-app.use('/', indexRouter);
+app.use('/',isAuthenticated, indexRouter);
 
-app.post('/login', passport.authenticate('local'), function(req, res) {
-  res.send('Inicio de sesión exitoso');
-});
 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// Middleware de autenticación
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -23,8 +23,10 @@ const ligas = {
         name: "Liga ED",
         jornada: "Jornada",
         categorias: [
-          { name: "Libre", torneos: ["C22", "A22"] },
+          { name: "Libre", torneos: ["A23","C22", "A22"] },
           { name: "Mixta", torneos: ["C22", "A22"] },
+          { name: "Sub23", torneos: ["A23", "A22"] },
+          { name: "Sub20", torneos: ["A23", "A22"] },
 
           { name: "Sub21", torneos: ["A23", "A22"] },
           { name: "Femenil", torneos: ["C22", "A22"] },
@@ -35,8 +37,10 @@ const ligas = {
         name: "Aguigol",
         jornada: "Semana",
         categorias: [
-          { name: "Libre", torneos: ["C22", "A22"] },
-          { name: "Sub23", torneos: ["A23", "A22"] },
+          { name: "Libre", torneos: ["A23","C22","C22", "A22"] },
+          { name: "Sub23", torneos: ["A23","C23","A22"] },
+          { name: "mixta", torneos: ["A23","C23","A22"] },
+
         ],
       },
       Gemelas: {
@@ -54,10 +58,13 @@ const ligas = {
         jornada: "Semana",
         categorias: [
           { name: "Libre", torneos: ["A23", "A22"] },
+          { name: "Libre_Platino", torneos: ["A23"] },
+
           { name: "Mixta", torneos: ["C22", "A22"] },
           { name: "Sub22", torneos: ["A23", "C22"] },
-          { name: "Femenil", torneos: ["C22", "A22"] },
+          { name: "Femenil", torneos: ["A23","C22", "A22"] },
           { name: "Sub18", torneos: ["C22", "A22"] },
+          { name: "Sub20", torneos: ["A23"] },
 
         ],
       },

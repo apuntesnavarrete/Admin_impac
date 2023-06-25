@@ -7,5 +7,9 @@ keys.js
 /node_modules/
 /public/imagenes/
 public/img/
+public/jug/
+database.js
+/database.js
 /prueba/
 node_modules/
+.env

@@ -1,6 +1,14 @@
 
 
+-)Arregla cuando un equipo nuevo que no tiene jugadores registrados se enfrenta a uno que si 
+
+-)crear ruta /new
+-)formulario liga categoria torneo 
+-)ruta post 
+-)cree la consulta
+
+-)crear nuevo torneo.
+-)crear tabla general
 
 
-
-
+*)si no hay equipos registrados // traer todos los ids

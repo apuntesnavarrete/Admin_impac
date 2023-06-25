@@ -24,12 +24,24 @@ class MyClass {
             this.color = "rgb(48 232 145)"
             break;
         
+            case "Libre_Platino":
+            this.color = "rgb(89 232 110)"
+            break;
+
           case "Femenil":
             this.color = 'rgb(230 161 197)'
             break;
         
           case "Mixta":
               this.color = 'rgb(177, 139, 202)'
+              break;
+
+              case "mixta":
+                this.color = 'rgb(177, 139, 202)'
+                break;
+
+              case "Sub20":
+              this.color = 'rgb(255, 128, 0)'
               break;
 
           case "Sub21":

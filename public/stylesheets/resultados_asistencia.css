@@ -107,15 +107,15 @@ body{
     .Equipo_local{
       text-align: right;
         grid-column: 1 / 8;
-        grid-row: 5 / 13;
+        grid-row: 6 / 13;
         align-self: center;
       justify-self: center;
       font-size: 1.5rem;
     }
 
     .Equipo_visita{
-        grid-column: 6 / 12;
-        grid-row: 5 / 13;
+      grid-column: 7 / 13;
+      grid-row: 6 / 13;
         align-self: center;
       justify-self: center;
       font-size: 1.5rem;

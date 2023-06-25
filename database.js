@@ -5,7 +5,7 @@ const pool = mysql.createPool({
        user     : 'root',
        password : 'toor',
        database : 'futbolce_zon58'
-  // otras opciones de configuración, si las tienes
+  // solo de uso local , modificar git ignore
 });
 
 pool.getConnection((error, connection) => {

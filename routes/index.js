@@ -109,7 +109,7 @@ router.get("/:liga/:categoria/Resultados", function (req, res, next) {
   const jornada = ligas["Ligas"][title]["jornada"];
   /*data need for mi class*/
  let Torneo_Abreviado = ligas["Ligas"][title]["categorias"].find(categoria => categoria.name == req.params.categoria).torneos[0]
-
+console.log(jornada)
   const ligaResultado = new MyClass(
     servidor,
     title,

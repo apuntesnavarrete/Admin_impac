@@ -23,7 +23,7 @@ const ligas = {
         name: "Liga ED",
         jornada: "Jornada",
         categorias: [
-          { name: "Libre", torneos: ["A23","C22", "A22"] },
+          { name: "Libre", torneos: ["a23","C22", "A22"] },
           { name: "Mixta", torneos: ["C22", "A22"] },
           { name: "Sub23", torneos: ["A23", "A22"] },
           { name: "Sub20", torneos: ["A23", "A22"] },

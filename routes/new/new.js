@@ -39,7 +39,7 @@ console.log(liga)
    )
     COLLATE 'utf8mb3_spanish_ci' ENGINE=InnoDB ROW_FORMAT=Dynamic AUTO_INCREMENT=0;`;
    
-   
+ 
     
     const consulta_vista_general = `CREATE VIEW ${liga}_general_${categoria}_${torneo} AS 
     SELECT \`Registros Global Equipo Heroes\`.\`Escudo\` AS \`Escudo\`
@@ -114,7 +114,6 @@ console.log(liga)
       FOREIGN KEY (\`Equipo\`) REFERENCES \`futbolce_zon58\`.\`registros global equipo heroes\` (\`id_plantel\`) ON UPDATE CASCADE ON DELETE CASCADE
   )
    COLLATE 'latin1_swedish_ci' ENGINE=InnoDB ROW_FORMAT=Dynamic;`;
-  
 
 const consulta_zplanteles = `CREATE VIEW z${liga}_Planteles_${categoria}_${torneo} AS 
 select \`${liga}_planteles_${categoria}_${torneo}\`.\`ID\` AS \`ID\`
@@ -172,14 +171,14 @@ let consulta_goleo = "CREATE TABLE `futbolce_zon58`.`" + liga + "_" + categoria 
 
 
 
-   await pool.query(consulta)
+ //  await pool.query(consulta)
    await pool.query(consulta_vista_general)
    await pool.query(consulta_zjor)
    await pool.query(consulta_jor)
-   await pool.query(consulta_c_planteles)
+//   await pool.query(consulta_c_planteles)
    await pool.query(consulta_zplanteles)
    await pool.query(consulta_planteles)
-   await pool.query(consulta_goleo)
+ //  await pool.query(consulta_goleo)
 
 
     res.send("imprimir data");

@@ -11,28 +11,36 @@ class MyClass {
       
       
         this.servidor = servidor;
-        this.title = title;
+        this.title = title.toLowerCase();
+        this.title_menu = title;
+
         this.liga = "Liga " + liga;
-        this.categoria = categoria
+        this.categoria = categoria.toLowerCase()
+        this.categoria_menu = categoria
+
         this.css = "general_" + title
         this.StyleSheet = "index.less"
         this.logo_liga = "logo" + title
         this.fondo = 'url("/images/fondo' + title + '.jpg")'
         
         switch (this.categoria) {
-          case "Libre":
+          case "libre":
             this.color = "rgb(48 232 145)"
             break;
         
-            case "Libre_Platino":
+            case "libre_Platino":
             this.color = "rgb(89 232 110)"
             break;
 
-          case "Femenil":
+            case "libre_platino":
+            this.color = "rgb(89 232 110)"
+            break;
+
+          case "femenil":
             this.color = 'rgb(230 161 197)'
             break;
         
-          case "Mixta":
+          case "mixta":
               this.color = 'rgb(177, 139, 202)'
               break;
 
@@ -40,23 +48,23 @@ class MyClass {
                 this.color = 'rgb(177, 139, 202)'
                 break;
 
-              case "Sub20":
+              case "sub20":
               this.color = 'rgb(255, 128, 0)'
               break;
 
-          case "Sub21":
+          case "sub21":
               this.color = 'rgb(255, 128, 0)'
               break;
 
-          case "Sub22":
+          case "sub22":
                 this.color = 'rgb(255, 128, 0)'
                 break;
 
-                case "Sub23":
+                case "sub23":
                   this.color = 'rgb(255, 128, 0)'
                   break;
 
-                case "Sub18":
+                case "sub18":
                   this.color = 'rgb(255 150 95)'
                   break;
           // Se pueden incluir todos los casos que quieras
@@ -68,7 +76,7 @@ class MyClass {
 
         this.jornada = jornada
         this.StyleSheet_Resultados = "Resultados.less"
-        this.Torneo_Abreviado = Torneo_Abreviado
+        this.Torneo_Abreviado = Torneo_Abreviado.toLowerCase()
 //Menu Inferior
         this.Menu_jugadores = "Jugadores"
         this.Menu_Equipos = "Equipos"
@@ -76,10 +84,14 @@ class MyClass {
 
         this.title_categoria = this.title + this.categoria
 
-        this.option = ["Resultados",  "Goleo y Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
-        this.option_vistas = ["Resultados/Imagenes",  "Goleo y Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
+        this.option = ["Resultados",  "Goleo_Asistencia" ,"Planteles" , "Sancionados" , "Vistas"]
+        this.option_vistas = ["Resultados/Imagenes",  "Goleo_Asistencia" ,"Planteles/Imagenes" , "Sancionados" , "General"]
 
-        this.link = this.servidor + this.title + "/" + this.categoria + "/" ;
+
+      
+
+        //modificacion paralink
+        this.link = this.servidor + this.title_menu + "/" + this.categoria_menu + "/" ;
 
         this.consulta_vista_general = "SELECT * FROM `" + this.title + "_general_" + this.categoria + "_" + this.Torneo_Abreviado + "`";
         this.consulta_vista_jornadas = "SELECT * FROM `" + this.title + "_jor_" + this.categoria + "_" + this.Torneo_Abreviado + "`";
@@ -105,8 +117,8 @@ class MyClass {
         this.consulta_planteles_jugador_id_edit = "UPDATE `" + this.title + "_planteles_" + this.categoria + "_" + this.Torneo_Abreviado + "` SET `Dorsal`=? ,`Torneo`=?  WHERE  `ID_INGRESO`=?;"
 
 
-        this.redirec_resultados = this.servidor + this.title + "/"+ this.categoria + "/Resultados/Imagenes"
-        this.redirec_planteles = this.servidor + this.title + "/"+ this.categoria + "/Planteles/Imagenes"
+        this.redirec_resultados = this.servidor + this.title_menu + "/"+ this.categoria_menu + "/Resultados/Imagenes"
+        this.redirec_planteles = this.servidor + this.title_menu + "/"+ this.categoria_menu + "/Planteles/Imagenes"
 
     }
  
@@ -133,7 +145,7 @@ class MyClass {
       
         
 
-      res.render('Resultados',{StyleSheet:this.StyleSheet_Resultados , Liga:this.title , title:this.title, categoria:this.categoria, Seccion , Planteles:vistas,Jornadas});
+      res.render('Resultados',{StyleSheet:this.StyleSheet_Resultados , Liga:this.title , Liga_menu:this.title_menu , title:this.title, categoria:this.categoria , categoria_menu:this.categoria_menu, Seccion , Planteles:vistas,Jornadas});
           }
 
 
@@ -403,7 +415,7 @@ class MyClass {
             async Planteles_imagenes(req,res){
               const plantel = await pool.query(this.consulta_planteles_img);
   
-             res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria , title:this.title});
+             res.render('planteles-img',{plantel ,Liga:this.liga , categoria:this.categoria_menu , title:this.title_menu});
             }
 
             async Planteles_delete_id(req,res,next){
